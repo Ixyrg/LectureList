@@ -3,43 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>LectureList — Comics, Mangas & Arbre de compréhension</title>
-
+<title>LectureList - Ma liste de lecture Comics & Mangas</title>
 <style>
-
-/* =========================================================
-   BASE
-========================================================= */
-
 * {
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
   background: #0a0a0a;
   color: #eee;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
-               Roboto, Helvetica, Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   margin: 0;
   padding: 0;
 }
-
-/* =========================================================
-   HEADER
-========================================================= */
 
 header {
   position: sticky;
   top: 0;
   background: #111;
-  padding: 16px 20px 0;
+  padding: 16px 20px 0 20px;
   border-bottom: 1px solid #262626;
-  z-index: 100;
+  z-index: 20;
 }
 
 .header-top {
@@ -57,23 +41,6 @@ header h1 {
   gap: 8px;
 }
 
-.title-group { display:flex; align-items:center; gap:10px; }
-.patchnotes-button { background:#1a1a1a; border:1px solid #333; color:#aaa; padding:7px 10px; border-radius:8px; font-size:.78rem; cursor:pointer; white-space:nowrap; }
-.patchnotes-button:hover, .patchnotes-button.active { background:#222; color:#4ade80; border-color:#4ade80; }
-.patchnotes-view { display:none; }
-.patchnotes-view.open { display:block; }
-.patchnotes-header { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:14px; }
-.patchnotes-title { font-size:1.15rem; font-weight:700; }
-.patchnotes-back { background:#1a1a1a; border:1px solid #333; color:#aaa; padding:7px 10px; border-radius:8px; cursor:pointer; }
-.patchnotes-back:hover { background:#222; color:#fff; }
-.patchnote { background:#141414; border-radius:10px; padding:14px; margin-bottom:8px; }
-.patchnote-version { font-weight:700; color:#4ade80; margin-bottom:3px; }
-.patchnote-date { color:#777; font-size:.78rem; margin-bottom:8px; }
-.patchnote ul { margin:6px 0 8px 20px; padding:0; color:#bbb; line-height:1.5; }
-.patchnote-label { font-weight:700; margin-top:8px; }
-@media (max-width:600px){ .title-group{gap:6px}.patchnotes-button{font-size:.7rem;padding:6px 8px}.patchnotes-header{align-items:flex-start} }
-
-
 .header-right {
   display: flex;
   align-items: center;
@@ -81,20 +48,20 @@ header h1 {
 }
 
 .progress {
-  font-size: .85rem;
+  font-size: 0.85rem;
   color: #999;
   white-space: nowrap;
 }
 
 .save-status {
-  font-size: .75rem;
+  font-size: 0.75rem;
   color: #4ade80;
   min-width: 70px;
 }
 
 /* =========================================================
-   ONGLETS
-========================================================= */
+   NAVIGATION PAR ONGLETS (TABS)
+   ========================================================= */
 
 .category-tabs {
   display: flex;
@@ -114,12 +81,12 @@ header h1 {
   border: none;
   color: #888;
   padding: 10px 16px;
-  font-size: .95rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
   white-space: nowrap;
-  transition: .2s;
 }
 
 .tab-button:hover {
@@ -132,13 +99,14 @@ header h1 {
 }
 
 /* =========================================================
-   RECHERCHE
-========================================================= */
+   RECHERCHE ET FILTRES
+   ========================================================= */
 
 .search-container {
-  margin: 12px 0 16px;
+  margin: 12px 0 16px 0;
   display: flex;
   gap: 8px;
+  position: relative;
 }
 
 .search-input {
@@ -149,7 +117,7 @@ header h1 {
   color: #eee;
   padding: 11px 14px;
   border-radius: 10px;
-  font-size: .95rem;
+  font-size: 0.95rem;
   outline: none;
 }
 
@@ -160,10 +128,6 @@ header h1 {
 .search-input::placeholder {
   color: #777;
 }
-
-/* =========================================================
-   FILTRE
-========================================================= */
 
 .filter-wrapper {
   position: relative;
@@ -178,12 +142,19 @@ header h1 {
   border-radius: 10px;
   cursor: pointer;
   font-size: 19px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.filter-button:hover,
+.filter-button:hover {
+  background: #222;
+  color: #fff;
+}
+
 .filter-button.active {
-  color: #4ade80;
   border-color: #4ade80;
+  color: #4ade80;
 }
 
 .filter-menu {
@@ -195,9 +166,9 @@ header h1 {
   border: 1px solid #333;
   border-radius: 10px;
   padding: 6px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.5);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
   display: none;
-  z-index: 200;
+  z-index: 100;
 }
 
 .filter-menu.open {
@@ -213,10 +184,12 @@ header h1 {
   padding: 10px 12px;
   border-radius: 7px;
   cursor: pointer;
+  font-size: 0.88rem;
 }
 
 .filter-option:hover {
   background: #252525;
+  color: #fff;
 }
 
 .filter-option.selected {
@@ -225,32 +198,30 @@ header h1 {
 }
 
 /* =========================================================
-   CONTENU
-========================================================= */
+   CONTENU & LISTE
+   ========================================================= */
 
 .container {
-  max-width: 850px;
-  margin: auto;
-  padding: 18px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 16px;
 }
 
 .section {
-  margin-bottom: 30px;
-  scroll-margin-top: 150px;
+  margin-bottom: 28px;
 }
 
 .section-title {
   font-size: 1.1rem;
   font-weight: 700;
-  padding: 11px 14px;
+  padding: 10px 14px;
   background: #1a1a1a;
   border-radius: 10px;
   margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-
-/* =========================================================
-   ITEMS
-========================================================= */
 
 .item {
   display: flex;
@@ -261,17 +232,15 @@ header h1 {
   margin-bottom: 6px;
   background: #141414;
   cursor: pointer;
-  transition: .15s;
-  scroll-margin-top: 160px;
+  transition: background 0.15s, transform 0.1s;
 }
 
 .item:hover {
-  background: #1d1d1d;
+  background: #1c1c1c;
 }
 
-.item.target-highlight {
-  outline: 2px solid #4ade80;
-  background: #1c2b20;
+.item:active {
+  transform: scale(0.99);
 }
 
 .checkbox {
@@ -283,6 +252,7 @@ header h1 {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 1px;
 }
 
 .checkbox.checked {
@@ -294,11 +264,13 @@ header h1 {
   content: "✓";
   color: #0a0a0a;
   font-weight: bold;
+  font-size: 14px;
 }
 
 .item-text {
-  font-size: .95rem;
+  font-size: 0.95rem;
   line-height: 1.4;
+  color: #eee;
 }
 
 .item.checked .item-text {
@@ -306,9 +278,25 @@ header h1 {
   text-decoration: line-through;
 }
 
+.reset-btn {
+  background: none;
+  border: 1px solid #444;
+  color: #999;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.reset-btn:hover {
+  background: #222;
+  color: #eee;
+}
+
 /* =========================================================
    TOMES
-========================================================= */
+   ========================================================= */
 
 .comic-row {
   display: flex;
@@ -325,8 +313,16 @@ header h1 {
   background: transparent;
   color: #aaa;
   cursor: pointer;
+  padding: 0;
   font-size: 13px;
-  transition: transform .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s;
+}
+
+.expand-button:hover {
+  color: #fff;
 }
 
 .expand-button.expanded {
@@ -343,14 +339,15 @@ header h1 {
 .volume-count {
   margin-left: auto;
   color: #777;
-  font-size: .78rem;
+  font-size: 0.78rem;
   white-space: nowrap;
+  padding-left: 8px;
 }
 
 .volume-list {
   display: none;
   margin: -2px 0 8px 56px;
-  padding: 4px 0 2px;
+  padding: 4px 0 2px 0;
 }
 
 .volume-list.open {
@@ -364,7 +361,7 @@ header h1 {
   padding: 8px 12px;
   margin-bottom: 4px;
   background: #101010;
-  border-left: 2px solid #333;
+  border-left: 2px solid #2c2c2c;
   border-radius: 0 7px 7px 0;
   cursor: pointer;
 }
@@ -379,6 +376,9 @@ header h1 {
   min-width: 19px;
   border: 2px solid #444;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .volume-checkbox.checked {
@@ -389,13 +389,12 @@ header h1 {
 .volume-checkbox.checked::after {
   content: "✓";
   color: #0a0a0a;
-  display: flex;
-  justify-content: center;
   font-weight: bold;
+  font-size: 12px;
 }
 
 .volume-text {
-  font-size: .88rem;
+  font-size: 0.88rem;
   color: #bbb;
 }
 
@@ -404,304 +403,81 @@ header h1 {
   text-decoration: line-through;
 }
 
-/* =========================================================
-   ARBRE
-========================================================= */
-
-.tree-page {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-}
-
-.tree-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.tree-header h2 {
-  margin: 0 0 8px;
-  font-size: 1.5rem;
-}
-
-.tree-header p {
-  color: #888;
-  margin: 0;
-}
-
-.tree-switch {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin: 20px 0;
-}
-
-.tree-switch button {
-  background: #181818;
-  border: 1px solid #333;
-  color: #aaa;
-  border-radius: 10px;
-  padding: 10px 18px;
-  cursor: pointer;
-  font-weight: 700;
-}
-
-.tree-switch button:hover {
-  background: #242424;
-}
-
-.tree-switch button.active {
-  color: #fff;
-  border-color: #4ade80;
-  background: #172219;
-}
-
-.tree {
-  overflow-x: auto;
-  padding: 15px 5px 40px;
-}
-
-.tree-level {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 18px;
-  min-width: max-content;
-  margin-bottom: 14px;
-}
-
-.tree-line {
-  height: 24px;
-  border-left: 2px solid #333;
-  margin: auto;
-  width: 0;
-}
-
-.tree-node {
-  min-width: 190px;
-  max-width: 240px;
-  padding: 13px;
-  background: #151515;
-  border: 1px solid #333;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: .2s;
-  text-align: center;
-}
-
-.tree-node:hover {
-  background: #202020;
-  border-color: #4ade80;
-  transform: translateY(-2px);
-}
-
-.tree-node.main {
-  border-color: #4ade80;
-}
-
-.tree-node.event {
-  border-color: #a78bfa;
-}
-
-.tree-node.parallel {
-  border-color: #f59e0b;
-}
-
-.tree-node.alternate {
-  border-color: #ef4444;
-}
-
-.tree-node-title {
-  font-weight: 700;
-  font-size: .9rem;
-  line-height: 1.3;
-}
-
-.tree-node-info {
-  margin-top: 5px;
-  font-size: .72rem;
-  color: #777;
-}
-
-.tree-legend {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-.legend {
-  font-size: .75rem;
-  color: #aaa;
-  padding: 5px 9px;
-  border-radius: 7px;
-  border: 1px solid #333;
-}
-
-.legend.main {
-  border-color: #4ade80;
-}
-
-.legend.event {
-  border-color: #a78bfa;
-}
-
-.legend.parallel {
-  border-color: #f59e0b;
-}
-
-.legend.alternate {
-  border-color: #ef4444;
-}
-
-/* =========================================================
-   BOUTON RETOUR ARBRE
-========================================================= */
-
-.tree-back {
-  display: inline-block;
-  margin-bottom: 10px;
-  background: #181818;
-  border: 1px solid #333;
-  color: #aaa;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.tree-back:hover {
-  color: #fff;
-}
-
-/* =========================================================
-   RESET
-========================================================= */
-
-.reset-btn {
-  background: none;
-  border: 1px solid #444;
-  color: #999;
-  padding: 6px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.reset-btn:hover {
-  background: #222;
-  color: #eee;
+.comic-completed .item-text {
+  color: #666;
+  text-decoration: line-through;
 }
 
 .no-results {
   text-align: center;
   padding: 40px 20px;
   color: #666;
+  font-size: 0.95rem;
 }
 
-/* =========================================================
-   MOBILE
-========================================================= */
-
 @media (max-width: 600px) {
-
   header {
-    padding: 12px 14px 0;
+    padding: 12px 14px 0 14px;
   }
 
   header h1 {
     font-size: 1.05rem;
   }
 
+  .header-right {
+    gap: 6px;
+  }
+
   .save-status {
     display: none;
+  }
+
+  .progress {
+    font-size: 0.75rem;
+  }
+
+  .reset-btn {
+    padding: 6px 8px;
+    font-size: 0.72rem;
   }
 
   .container {
     padding: 12px;
   }
 
+  .search-input {
+    font-size: 0.9rem;
+  }
+
   .volume-list {
     margin-left: 38px;
   }
 
-  .tree-level {
-    justify-content: flex-start;
+  .volume-count {
+    font-size: 0.72rem;
   }
-
 }
-
 </style>
 </head>
-
 <body>
 
 <header>
-
   <div class="header-top">
-
-    <div class="title-group"><h1>📚 LectureList</h1><button class="patchnotes-button" id="patchnotesButton" type="button">📝 Patchnotes</button></div>
-
+    <h1>📚 LectureList</h1>
     <div class="header-right">
-
-      <span class="progress" id="progress">
-        0 / 0
-      </span>
-
+      <span class="progress" id="progress">0 / 0</span>
       <span class="save-status" id="saveStatus"></span>
-
-      <button
-        class="reset-btn"
-        id="resetButton"
-        type="button"
-      >
-        Réinitialiser
-      </button>
-
+      <button class="reset-btn" id="resetButton" type="button">Réinitialiser</button>
     </div>
-
   </div>
 
   <div class="category-tabs" id="categoryTabs">
-
-    <button
-      class="tab-button active"
-      data-category="dc"
-      type="button"
-    >
-      🦇 Comics DC
-    </button>
-
-    <button
-      class="tab-button"
-      data-category="marvel"
-      type="button"
-    >
-      🦸 Comics Marvel
-    </button>
-
-    <button
-      class="tab-button"
-      data-category="manga"
-      type="button"
-    >
-      ⚔️ Mangas
-    </button>
-
-    <button
-      class="tab-button"
-      data-category="tree"
-      type="button"
-    >
-      🌳 Arbre de compréhension
-    </button>
-
+    <button class="tab-button active" data-category="dc" type="button">🦇 Comics DC</button>
+    <button class="tab-button" data-category="marvel" type="button">🦸 Comics Marvel</button>
+    <button class="tab-button" data-category="manga" type="button">⚔️ Mangas</button>
   </div>
 
-  <div
-    class="search-container"
-    id="searchContainer"
-  >
-
+  <div class="search-container">
     <input
       type="search"
       id="searchInput"
@@ -711,4791 +487,855 @@ header h1 {
     >
 
     <div class="filter-wrapper">
-
-      <button
-        class="filter-button"
-        id="filterButton"
-        type="button"
-      >
-        ⚙️
-      </button>
-
-      <div
-        class="filter-menu"
-        id="filterMenu"
-      >
-
-        <button
-          class="filter-option selected"
-          data-filter="all"
-          type="button"
-        >
-          📚 Tous
-        </button>
-
-        <button
-          class="filter-option"
-          data-filter="checked"
-          type="button"
-        >
-          ☑️ Cochés
-        </button>
-
-        <button
-          class="filter-option"
-          data-filter="unchecked"
-          type="button"
-        >
-          ☐ Non cochés
-        </button>
-
+      <button class="filter-button" id="filterButton" type="button" title="Filtrer">⚙️</button>
+      <div class="filter-menu" id="filterMenu">
+        <button class="filter-option selected" data-filter="all" type="button">📚 Tous</button>
+        <button class="filter-option" data-filter="checked" type="button">☑️ Cochés</button>
+        <button class="filter-option" data-filter="unchecked" type="button">☐ Non cochés</button>
       </div>
-
     </div>
-
   </div>
-
 </header>
 
-
-<div class="container patchnotes-view" id="patchnotesView">
-  <div class="patchnotes-header">
-    <div class="patchnotes-title">📝 Patchnotes</div>
-    <button class="patchnotes-back" id="patchnotesBack" type="button">← Retour à la liste</button>
-  </div>
-
-  <div class="patchnote">
-    <div class="patchnote-version">v2.2 — Enrichissement encyclopédique DC &amp; Marvel</div>
-    <div class="patchnote-date">13 août 2026</div>
-    <div class="patchnote-label">🟢 Ajouts</div>
-    <ul><li>Ajout massif de centaines d’histoires DC et Marvel : origines, runs, événements, crossovers, personnages majeurs, sagas cosmiques, périodes modernes et univers alternatifs.</li><li>Titres français privilégiés lorsque disponibles.</li></ul>
-    <div class="patchnote-label">🔴 Retraits</div>
-    <ul><li>Aucun retrait volontaire de la base d’origine.</li></ul>
-    <div class="patchnote-label">🔧 Corrections</div>
-    <ul><li>Déduplication automatique des titres ajoutés pour éviter les doublons évidents.</li><li>Les nouvelles entrées utilisent des volumes prudents (1 album) lorsqu’aucun découpage d’édition précis n’est établi.</li></ul>
-    <div class="patchnote-label">🌳 Arbre</div>
-    <ul><li>L’apparence et le fonctionnement de l’arbre d’origine sont conservés ; seuls des jalons supplémentaires ont été ajoutés aux niveaux existants.</li></ul>
-  </div>
-
-  <div class="patchnote">
-    <div class="patchnote-version">v2.1 — Patchnotes</div>
-    <div class="patchnote-date">13 août 2026</div>
-    <div class="patchnote-label">🟢 Ajouts</div>
-    <ul><li>Ajout de l’onglet Patchnotes à côté du titre LectureList.</li></ul>
-    <div class="patchnote-label">🔴 Retraits</div>
-    <ul><li>Aucun retrait.</li></ul>
-    <div class="patchnote-label">🔧 Corrections</div>
-    <ul><li>Le système est intégré directement dans la navigation de LectureList.</li></ul>
-    <div class="patchnote-label">🌳 Arbre</div>
-    <ul><li>L’arbre de compréhension reste inchangé.</li></ul>
-  </div>
-
-  <div class="patchnote">
-    <div class="patchnote-version">v2.0 — Persistance des cases</div>
-    <div class="patchnote-date">13 août 2026</div>
-    <div class="patchnote-label">🟢 Ajouts</div>
-    <ul><li>Identifiants stables pour conserver les cases cochées entre les mises à jour.</li></ul>
-    <div class="patchnote-label">🔴 Retraits</div>
-    <ul><li>Aucun retrait.</li></ul>
-    <div class="patchnote-label">🔧 Corrections</div>
-    <ul><li>Les cases restent cochées même lorsque les comics sont ajoutés, supprimés ou réordonnés.</li></ul>
-    <div class="patchnote-label">🌳 Arbre</div>
-    <ul><li>Conservation des liens cliquables de l’arbre.</li></ul>
-  </div>
-
-  <div class="patchnote">
-    <div class="patchnote-version">v1.9 — Correction des tomes</div>
-    <div class="patchnote-date">13 août 2026</div>
-    <div class="patchnote-label">🟢 Ajouts</div>
-    <ul><li>Meilleure distinction entre albums français et contenus américains.</li></ul>
-    <div class="patchnote-label">🔴 Retraits</div>
-    <ul><li>Doublons évidents supprimés.</li></ul>
-    <div class="patchnote-label">🔧 Corrections</div>
-    <ul><li>Correction de plusieurs numéros de tomes, notamment Superman : Les Hommes d’acier.</li></ul>
-    <div class="patchnote-label">🌳 Arbre</div>
-    <ul><li>Organisation chronologique conservée.</li></ul>
-  </div>
-
-  <div class="patchnote">
-    <div class="patchnote-version">v1.8 — Titres français</div>
-    <div class="patchnote-date">13 août 2026</div>
-    <div class="patchnote-label">🟢 Ajouts</div>
-    <ul><li>Davantage de titres français lorsqu’ils sont disponibles.</li></ul>
-    <div class="patchnote-label">🔴 Retraits</div>
-    <ul><li>Aucun retrait majeur.</li></ul>
-    <div class="patchnote-label">🔧 Corrections</div>
-    <ul><li>Nettoyage de plusieurs entrées.</li></ul>
-    <div class="patchnote-label">🌳 Arbre</div>
-    <ul><li>Les événements parallèles restent placés côte à côte lorsque nécessaire.</li></ul>
-  </div>
+<div class="container" id="app">
+  <div style="text-align:center; padding:40px; color:#666;">Chargement...</div>
 </div>
 
-<div
-  class="container"
-  id="app"
-></div>
-
-
 <script>
-
 /* =========================================================
-   BASE DE DONNÉES
-========================================================= */
+   BASE DE DONNÉES PAR CATÉGORIES (DC, MARVEL, MANGA)
+   ========================================================= */
 
 const database = {
-
-  /* =======================================================
-     DC
-  ======================================================= */
-
-  dc: [
-
-    {
-      title: "🌅 Origines et débuts de Batman",
-      items: [
-
-        {
-          title: "Batman : Année Un — Frank Miller / David Mazzucchelli",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Le Long Halloween — Jeph Loeb / Tim Sale",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Amère Victoire — Jeph Loeb / Tim Sale",
-          volumes: 1
-        },
-
-        {
-          title: "Catwoman : À Rome — Jeph Loeb / Tim Sale",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Le Fils du Démon — Mike W. Barr / Jerry Bingham",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Venin — Doug Moench / Klaus Janson",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Le Culte — Jim Starlin / Bernie Wrightson",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Arkham Asylum — Grant Morrison / Dave McKean",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Killing Joke — Alan Moore / Brian Bolland",
-          volumes: 1
-        }
-
-      ]
-    },
-
-    {
-      title: "🦇 Batman — Ère classique",
-      items: [
-
-        {
-          title: "Batman : Gothic — Grant Morrison / Klaus Janson",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Knightfall",
-          volumes: 5
-        },
-
-        {
-          title: "Batman : Le Fils Prodigue",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : No Man's Land",
-          volumes: 3
-        },
-
-        {
-          title: "JLA : La Tour de Babel — Mark Waid / Howard Porter",
-          volumes: 1
-        },
-
-        {
-          title: "JLA : Rock of Ages — Grant Morrison",
-          volumes: 1
-        },
-
-        {
-          title: "Identity Crisis — Brad Meltzer / Rags Morales",
-          volumes: 1
-        }
-
-      ]
-    },
-
-    {
-      title: "🌌 Vers Infinite Crisis",
-      items: [
-
-        {
-          title: "Batman : Hush — Jeph Loeb / Jim Lee",
-          volumes: 2
-        },
-
-        {
-          title: "Batman : Guerre des Jeux",
-          volumes: 2
-        },
-
-        {
-          title: "Teen Titans — Geoff Johns",
-          volumes: 5
-        },
-
-        {
-          title: "Green Lantern : Rebirth — Geoff Johns / Ethan Van Sciver",
-          volumes: 1
-        },
-
-        {
-          title: "Green Lantern : Sinestro Corps War",
-          volumes: 2
-        },
-
-        {
-          title: "Infinite Crisis — Geoff Johns",
-          volumes: 1
-        },
-
-        {
-          title: "52 — Geoff Johns / Grant Morrison / Greg Rucka / Mark Waid",
-          volumes: 4
-        },
-
-        {
-          title: "Seven Soldiers — Grant Morrison",
-          volumes: 4
-        }
-
-      ]
-    },
-
-    {
-      title: "🌌 Final Crisis",
-      items: [
-
-        {
-          title: "Countdown to Final Crisis",
-          volumes: 4
-        },
-
-        {
-          title: "Batman R.I.P. — Grant Morrison",
-          volumes: 1
-        },
-
-        {
-          title: "Final Crisis — Grant Morrison",
-          volumes: 1
-        },
-
-        {
-          title: "Final Crisis : Superman Beyond",
-          volumes: 1
-        },
-
-        {
-          title: "Final Crisis : Submit",
-          volumes: 1
-        },
-
-        {
-          title: "Final Crisis : Requiem",
-          volumes: 1
-        },
-
-        {
-          title: "Battle for the Cowl",
-          volumes: 1
-        }
-
-      ]
-    },
-
-    {
-      title: "🦇 Après Final Crisis",
-      items: [
-
-        {
-          title: "Batman & Robin — Grant Morrison",
-          volumes: 3
-        },
-
-        {
-          title: "Le Dossier Noir — Grant Morrison",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : The Return of Bruce Wayne",
-          volumes: 1
-        },
-
-        {
-          title: "Batman Incorporated",
-          volumes: 3
-        },
-
-        {
-          title: "Batman : Miroir Noir",
-          volumes: 1
-        },
-
-        {
-          title: "Blackest Night — Geoff Johns / Ivan Reis",
-          volumes: 2
-        },
-
-        {
-          title: "Brightest Day",
-          volumes: 3
-        },
-
-        {
-          title: "Flashpoint — Geoff Johns / Andy Kubert",
-          volumes: 1
-        }
-
-      ]
-    },
-
-    {
-      title: "⚡ New 52 — Fondation",
-      items: [
-
-        {
-          title: "Justice League — Geoff Johns / Jim Lee",
-          volumes: 7
-        },
-
-        {
-          title: "Batman : La Cour des Hiboux",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : La Nuit des Hiboux",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Le Deuil de la Famille",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : L'An Zéro",
-          volumes: 2
-        },
-
-        {
-          title: "Batman Eternal",
-          volumes: 4
-        },
-
-        {
-          title: "Superman : Les Hommes d'acier — Grant Morrison / Rags Morales (Eaglemoss #9)",
-          volumes: 1
-        },
-
-        {
-          title: "Superman : Unchained",
-          volumes: 1
-        },
-
-        {
-          title: "Wonder Woman — Brian Azzarello / Cliff Chiang",
-          volumes: 6
-        },
-
-        {
-          title: "Aquaman — Geoff Johns / Ivan Reis",
-          volumes: 6
-        },
-
-        {
-          title: "Flash — Francis Manapul / Brian Buccellato",
-          volumes: 7
-        },
-
-        {
-          title: "Green Lantern — Geoff Johns",
-          volumes: 5
-        },
-
-        {
-          title: "Justice League Dark",
-          volumes: 3
-        },
-
-        {
-          title: "Teen Titans — Scott Lobdell",
-          volumes: 5
-        },
-
-        {
-          title: "Suicide Squad — Adam Glass",
-          volumes: 4
-        }
-
-      ]
-    },
-
-    {
-      title: "🌑 New 52 — Grandes crises",
-      items: [
-
-        {
-          title: "Trinity War",
-          volumes: 1
-        },
-
-        {
-          title: "Forever Evil",
-          volumes: 2
-        },
-
-        {
-          title: "Batman : Mascarade",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : La Relève",
-          volumes: 2
-        },
-
-        {
-          title: "Convergence",
-          volumes: 4
-        }
-
-      ]
-    },
-
-    {
-      title: "🦸 Rebirth",
-      items: [
-
-        {
-          title: "DC Universe Rebirth — Geoff Johns",
-          volumes: 1
-        },
-
-        {
-          title: "Superman Rebirth",
-          volumes: 6
-        },
-
-        {
-          title: "Action Comics — Dan Jurgens",
-          volumes: 5
-        },
-
-        {
-          title: "Batman Rebirth — Tom King",
-          volumes: 12
-        },
-
-        {
-          title: "Batman : La Guerre des Rires et des Énigmes",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Joker War",
-          volumes: 3
-        },
-
-        {
-          title: "Batman : Detective Comics — Peter J. Tomasi",
-          volumes: 5
-        },
-
-        {
-          title: "Nightwing : Renaissance",
-          volumes: 1
-        },
-
-        {
-          title: "Wonder Woman Rebirth",
-          volumes: 4
-        },
-
-        {
-          title: "Flash Rebirth — Joshua Williamson",
-          volumes: 12
-        },
-
-        {
-          title: "Green Lanterns",
-          volumes: 5
-        },
-
-        {
-          title: "Hal Jordan et le Corps des Green Lantern",
-          volumes: 7
-        },
-
-        {
-          title: "Aquaman Rebirth",
-          volumes: 6
-        },
-
-        {
-          title: "Justice League — Bryan Hitch",
-          volumes: 6
-        },
-
-        {
-          title: "Teen Titans Rebirth",
-          volumes: 4
-        },
-
-        {
-          title: "Suicide Squad Rebirth",
-          volumes: 6
-        }
-
-      ]
-    },
-
-    {
-      title: "🦇 Metal",
-      items: [
-
-        {
-          title: "Batman : Metal",
-          volumes: 3
-        },
-
-        {
-          title: "Justice League : No Justice",
-          volumes: 1
-        },
-
-        {
-          title: "Justice League — Scott Snyder",
-          volumes: 6
-        },
-
-        {
-          title: "The Batman Who Laughs",
-          volumes: 1
-        },
-
-        {
-          title: "Dark Nights : Death Metal",
-          volumes: 4
-        },
-
-        {
-          title: "Dark Nights : Death Metal — Les Liens",
-          volumes: 1
-        }
-
-      ]
-    },
-
-    {
-      title: "🌌 Infinite Frontier → Dark Crisis",
-      items: [
-
-        {
-          title: "Infinite Frontier",
-          volumes: 2
-        },
-
-        {
-          title: "Justice League Incarnate",
-          volumes: 2
-        },
-
-        {
-          title: "Dark Crisis sur les Terres Infinies",
-          volumes: 2
-        },
-
-        {
-          title: "Lazarus Planet",
-          volumes: 2
-        },
-
-        {
-          title: "Knight Terrors",
-          volumes: 4
-        },
-
-        {
-          title: "Absolute Power",
-          volumes: 4
-        }
-
-      ]
-    },
-
-    {
-      title: "🌎 DC — Histoires alternatives",
-      items: [
-
-        {
-          title: "Watchmen — Alan Moore / Dave Gibbons",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : The Dark Knight Returns",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : White Knight",
-          volumes: 2
-        },
-
-        {
-          title: "Batman : Terre-Un",
-          volumes: 3
-        },
-
-        {
-          title: "Batman : Imposter",
-          volumes: 1
-        },
-
-        {
-          title: "Batman : Un Mauvais Jour",
-          volumes: 7
-        },
-
-        {
-          title: "Superman : Red Son",
-          volumes: 1
-        },
-
-        {
-          title: "Superman : All-Star Superman",
-          volumes: 1
-        },
-
-        {
-          title: "Superman : Identité Secrète",
-          volumes: 1
-        },
-
-        {
-          title: "Kingdom Come",
-          volumes: 1
-        },
-
-        {
-          title: "JLA : Terre 2",
-          volumes: 1
-        },
-
-        {
-          title: "Justice League : New Frontier",
-          volumes: 1
-        },
-
-        {
-          title: "Injustice",
-          volumes: 12
-        }
-
-      ]
-    }
-
-  ],
-
-
-  /* =======================================================
-     MARVEL
-  ======================================================= */
-
-  marvel: [
-
-    {
-      title: "🌌 Origines — Marvel classique",
-      items: [
-
-        {
-          title: "Fantastic Four — Stan Lee / Jack Kirby",
-          volumes: 5
-        },
-
-        {
-          title: "Avengers — Stan Lee / Jack Kirby",
-          volumes: 5
-        },
-
-        {
-          title: "Amazing Spider-Man — Stan Lee / Steve Ditko",
-          volumes: 5
-        },
-
-        {
-          title: "Amazing Spider-Man — John Romita Sr.",
-          volumes: 5
-        },
-
-        {
-          title: "X-Men — Chris Claremont / John Byrne",
-          volumes: 10
-        },
-
-        {
-          title: "Daredevil — Frank Miller / Klaus Janson",
-          volumes: 6
-        },
-
-        {
-          title: "Daredevil : Born Again",
-          volumes: 1
-        },
-
-        {
-          title: "Spider-Man : La Mort de Jean DeWolff",
-          volumes: 1
-        },
-
-        {
-          title: "Spider-Man : La Dernière Chasse de Kraven",
-          volumes: 1
-        },
-
-        {
-          title: "Secret Wars (1984)",
-          volumes: 1
-        }
-
-      ]
-    },
-
-    {
-      title: "🕷️ Spider-Man — Ère moderne",
-      items: [
-
-        {
-          title: "Spider-Man : La Saga du Clone",
-          volumes: 6
-        },
-
-        {
-          title: "Spider-Man : Maximum Carnage",
-          volumes: 2
-        },
-
-        {
-          title: "Spider-Man : Bleu",
-          volumes: 1
-        },
-
-        {
-          title: "New Avengers — Brian Michael Bendis",
-          volumes: 7
-        },
-
-        {
-          title: "Avengers : Les Maîtres du Mal",
-          volumes: 1
-        },
-
-        {
-          title: "House of M",
-          volumes: 1
-        },
-
-        {
-          title: "Civil War",
-          volumes: 1
-        },
-
-        {
-          title: "Spider-Man : Brand New Day",
-          volumes: 6
-        },
-
-        {
-          title: "Secret Invasion",
-          volumes: 1
-        },
-
-        {
-          title: "Dark Reign",
-          volumes: 2
-        },
-
-        {
-          title: "Siege",
-          volumes: 1
-        }
-
-      ]
-    },
-
-    {
-      title: "❌ X-Men — Grandes sagas",
-      items: [
-
-        {
-          title: "X-Men : Dieu crée, l'homme détruit",
-          volumes: 1
-        },
-
-        {
-          title: "La Saga du Phénix Noir",
-          volumes: 2
-        },
-
-        {
-          title: "Days of Future Past",
-          volumes: 1
-        },
-
-        {
-          title: "Wolverine : Arme X",
-          volumes: 1
-        },
-
-        {
-          title: "X-Men : L'Ère d'Apocalypse",
-          volumes: 4
-        },
-
-        {
-          title: "New X-Men — Grant Morrison",
-          volumes: 7
-        },
-
-        {
-          title: "Astonishing X-Men",
-          volumes: 4
-        },
-
-        {
-          title: "Uncanny X-Force",
-          volumes: 4
-        },
-
-        {
-          title: "House of X / Powers of X",
-          volumes: 2
-        },
-
-        {
-          title: "X-Men : Krakoa",
-          volumes: 10
-        }
-
-      ]
-    },
-
-    {
-      title: "😈 Héros urbains",
-      items: [
-
-        {
-          title: "Daredevil : L'Homme sans peur",
-          volumes: 1
-        },
-
-        {
-          title: "Daredevil — Brian Michael Bendis / Alex Maleev",
-          volumes: 5
-        },
-
-        {
-          title: "Daredevil — Ed Brubaker / Michael Lark",
-          volumes: 4
-        },
-
-        {
-          title: "Daredevil — Mark Waid",
-          volumes: 6
-        },
-
-        {
-          title: "Punisher MAX — Garth Ennis",
-          volumes: 6
-        },
-
-        {
-          title: "Punisher : Bienvenue chez les Punisher",
-          volumes: 1
-        },
-
-        {
-          title: "Moon Knight — Jeff Lemire",
-          volumes: 3
-        },
-
-        {
-          title: "Moon Knight — Jed MacKay",
-          volumes: 5
-        }
-
-      ]
-    },
-
-    {
-      title: "🌌 Guerre cosmique",
-      items: [
-
-        {
-          title: "Infinity Gauntlet",
-          volumes: 1
-        },
-
-        {
-          title: "Infinity War",
-          volumes: 1
-        },
-
-        {
-          title: "Infinity Crusade",
-          volumes: 1
-        },
-
-        {
-          title: "Annihilation",
-          volumes: 3
-        },
-
-        {
-          title: "Annihilation : Conquest",
-          volumes: 2
-        },
-
-        {
-          title: "War of Kings",
-          volumes: 2
-        },
-
-        {
-          title: "Realm of Kings",
-          volumes: 1
-        },
-
-        {
-          title: "Infinity — Jonathan Hickman",
-          volumes: 2
-        }
-
-      ]
-    },
-
-    {
-      title: "🛡️ Avengers — Hickman",
-      items: [
-
-        {
-          title: "Avengers — Jonathan Hickman",
-          volumes: 6
-        },
-
-        {
-          title: "New Avengers — Jonathan Hickman",
-          volumes: 6
-        },
-
-        {
-          title: "Avengers : Time Runs Out",
-          volumes: 2
-        },
-
-        {
-          title: "Secret Wars (2015)",
-          volumes: 1
-        }
-
-      ]
-    },
-
-    {
-      title: "🕷️ Spider-Verse",
-      items: [
-
-        {
-          title: "Spider-Man : Spider-Verse",
-          volumes: 2
-        },
-
-        {
-          title: "Spider-Man : Superior Spider-Man",
-          volumes: 6
-        },
-
-        {
-          title: "Amazing Spider-Man — Dan Slott",
-          volumes: 10
-        },
-
-        {
-          title: "Spider-Man : Life Story",
-          volumes: 1
-        },
-
-        {
-          title: "Spider-Man : Noir",
-          volumes: 1
-        }
-
-      ]
-    },
-
-    {
-      title: "🖤 Ère symbiote moderne",
-      items: [
-
-        {
-          title: "Absolute Carnage",
-          volumes: 1
-        },
-
-        {
-          title: "King in Black",
-          volumes: 2
-        }
-
-      ]
-    },
-
-    {
-      title: "🌌 Marvel — Après Secret Wars",
-      items: [
-
-        {
-          title: "Avengers — Jason Aaron",
-          volumes: 2
-        },
-
-        {
-          title: "House of X / Powers of X",
-          volumes: 2
-        },
-
-        {
-          title: "X-Men : Krakoa",
-          volumes: 10
-        },
-
-        {
-          title: "King in Black",
-          volumes: 2
-        }
-
-      ]
-    },
-
-    {
-      title: "🌎 Marvel — Univers alternatifs",
-      items: [
-
-        {
-          title: "Ultimate Spider-Man — Brian Michael Bendis / Mark Bagley",
-          volumes: 22
-        },
-
-        {
-          title: "Ultimate Spider-Man — Jonathan Hickman",
-          volumes: 3
-        },
-
-        {
-          title: "Spider-Man : Noir",
-          volumes: 1
-        },
-
-        {
-          title: "Wolverine : Old Man Logan",
-          volumes: 1
-        },
-
-        {
-          title: "Marvel Zombies",
-          volumes: 5
-        },
-
-        {
-          title: "House of M",
-          volumes: 1
-        }
-
-      ]
-    }
-
-  ],
-
-
-  /* =======================================================
-     MANGA
-  ======================================================= */
-
-  manga: [
-
-    {
-      title: "⚔️ Shonen incontournables",
-      items: [
-
-        {
-          title: "Dragon Ball — Akira Toriyama",
-          volumes: 42
-        },
-
-        {
-          title: "One Piece — Eiichiro Oda",
-          volumes: 108
-        },
-
-        {
-          title: "Naruto — Masashi Kishimoto",
-          volumes: 72
-        },
-
-        {
-          title: "Bleach — Tite Kubo",
-          volumes: 74
-        },
-
-        {
-          title: "Hunter x Hunter — Yoshihiro Togashi",
-          volumes: 37
-        },
-
-        {
-          title: "Fullmetal Alchemist — Hiromu Arakawa",
-          volumes: 27
-        },
-
-        {
-          title: "My Hero Academia — Kohei Horikoshi",
-          volumes: 42
-        },
-
-        {
-          title: "Demon Slayer — Koyoharu Gotouge",
-          volumes: 23
-        },
-
-        {
-          title: "Jujutsu Kaisen — Gege Akutami",
-          volumes: 30
-        },
-
-        {
-          title: "Black Clover — Yūki Tabata",
-          volumes: 36
-        },
-
-        {
-          title: "Fairy Tail — Hiro Mashima",
-          volumes: 63
-        },
-
-        {
-          title: "JoJo's Bizarre Adventure — Hirohiko Araki",
-          volumes: 131
-        }
-
-      ]
-    },
-
-    {
-      title: "🩸 Seinen",
-      items: [
-
-        {
-          title: "Berserk — Kentaro Miura",
-          volumes: 42
-        },
-
-        {
-          title: "Monster — Naoki Urasawa",
-          volumes: 18
-        },
-
-        {
-          title: "20th Century Boys — Naoki Urasawa",
-          volumes: 22
-        },
-
-        {
-          title: "Pluto — Naoki Urasawa / Osamu Tezuka",
-          volumes: 8
-        },
-
-        {
-          title: "Vagabond — Takehiko Inoue",
-          volumes: 37
-        },
-
-        {
-          title: "Vinland Saga — Makoto Yukimura",
-          volumes: 28
-        },
-
-        {
-          title: "Gantz — Hiroya Oku",
-          volumes: 37
-        },
-
-        {
-          title: "Blame! — Tsutomu Nihei",
-          volumes: 10
-        },
-
-        {
-          title: "Akira — Katsuhiro Otomo",
-          volumes: 6
-        }
-
-      ]
-    },
-
-    {
-      title: "🔥 Dark Fantasy & horreur",
-      items: [
-
-        {
-          title: "Chainsaw Man — Tatsuki Fujimoto",
-          volumes: 21
-        },
-
-        {
-          title: "L'Attaque des Titans — Hajime Isayama",
-          volumes: 34
-        },
-
-        {
-          title: "The Promised Neverland",
-          volumes: 20
-        },
-
-        {
-          title: "Claymore — Norihiro Yagi",
-          volumes: 27
-        },
-
-        {
-          title: "Devilman — Go Nagai",
-          volumes: 5
-        },
-
-        {
-          title: "Parasyte — Hitoshi Iwaaki",
-          volumes: 10
-        },
-
-        {
-          title: "Uzumaki — Junji Ito",
-          volumes: 1
-        },
-
-        {
-          title: "Tomie — Junji Ito",
-          volumes: 1
-        }
-
-      ]
-    },
-
-    {
-      title: "🚀 Science-fiction",
-      items: [
-
-        {
-          title: "Ghost in the Shell — Masamune Shirow",
-          volumes: 3
-        },
-
-        {
-          title: "Neon Genesis Evangelion",
-          volumes: 14
-        },
-
-        {
-          title: "Cowboy Bebop",
-          volumes: 3
-        },
-
-        {
-          title: "Planètes — Makoto Yukimura",
-          volumes: 4
-        },
-
-        {
-          title: "Knights of Sidonia — Tsutomu Nihei",
-          volumes: 15
-        },
-
-        {
-          title: "Dorohedoro — Q Hayashida",
-          volumes: 23
-        }
-
-      ]
-    },
-
-    {
-      title: "🏆 Classiques",
-      items: [
-
-        {
-          title: "Astro Boy — Osamu Tezuka",
-          volumes: 23
-        },
-
-        {
-          title: "Black Jack — Osamu Tezuka",
-          volumes: 17
-        },
-
-        {
-          title: "Dororo — Osamu Tezuka",
-          volumes: 4
-        },
-
-        {
-          title: "Hokuto no Ken",
-          volumes: 27
-        },
-
-        {
-          title: "City Hunter — Tsukasa Hōjō",
-          volumes: 35
-        },
-
-        {
-          title: "Ranma 1/2 — Rumiko Takahashi",
-          volumes: 38
-        },
-
-        {
-          title: "Détective Conan — Gosho Aoyama",
-          volumes: 107
-        }
-
-      ]
-    }
-
-  ]
-
-};
-
-
-/* =========================================================
-   ARBRES DE COMPRÉHENSION
-========================================================= */
-
-const trees = {
-
-  dc: [
-
-    {
-      level: 0,
-      nodes: [
-        {
-          title: "🌍 Origines DC",
-          info: "Débuts des héros",
-          type: "main",
-          category: "dc",
-          section: 0,
-          item: 0
-        }
-      ]
-    },
-
-    {
-      level: 1,
-      nodes: [
-        {
-          title: "🦇 Batman",
-          info: "Année Un",
-          type: "main",
-          category: "dc",
-          section: 0,
-          item: 0
-        },
-        {
-          title: "🦸 Superman",
-          info: "Premières aventures",
-          type: "parallel",
-          category: "dc",
-          section: 0,
-          item: 0
-        },
-        {
-          title: "⚡ Flash",
-          info: "Ère classique",
-          type: "parallel",
-          category: "dc",
-          section: 1,
-          item: 5
-        }
-      ]
-    },
-
-    {
-      level: 2,
-      nodes: [
-        {
-          title: "🦇 Batman — Ère classique",
-          info: "Long Halloween → No Man's Land",
-          type: "main",
-          category: "dc",
-          section: 1,
-          item: 0
-        },
-        {
-          title: "🌟 Justice League",
-          info: "Montée en puissance",
-          type: "parallel",
-          category: "dc",
-          section: 1,
-          item: 4
-        },
-        {
-          title: "💚 Green Lantern",
-          info: "Rebirth",
-          type: "parallel",
-          category: "dc",
-          section: 2,
-          item: 3
-        }
-      ]
-    },
-
-    {
-      level: 3,
-      nodes: [
-        {
-          title: "⚠️ Identity Crisis",
-          info: "Crise des héros",
-          type: "event",
-          category: "dc",
-          section: 1,
-          item: 6
-        },
-        {
-          title: "🌌 Infinite Crisis",
-          info: "Grande crise",
-          type: "event",
-          category: "dc",
-          section: 2,
-          item: 5
-        },
-        {
-          title: "📅 52",
-          info: "Après Infinite Crisis",
-          type: "parallel",
-          category: "dc",
-          section: 2,
-          item: 6
-        }
-      ]
-    },
-
-    {
-      level: 4,
-      nodes: [
-        {
-          title: "🦇 Batman R.I.P.",
-          info: "Avant Final Crisis",
-          type: "main",
-          category: "dc",
-          section: 3,
-          item: 1
-        },
-        {
-          title: "🌌 Final Crisis",
-          info: "Crise cosmique",
-          type: "event",
-          category: "dc",
-          section: 3,
-          item: 2
-        },
-        {
-          title: "🖤 Blackest Night",
-          info: "Guerre des Lantern",
-          type: "parallel",
-          category: "dc",
-          section: 4,
-          item: 6
-        }
-      ]
-    },
-
-    {
-      level: 5,
-      nodes: [
-        {
-          title: "⚔️ Battle for the Cowl",
-          info: "Succession de Batman",
-          type: "parallel",
-          category: "dc",
-          section: 3,
-          item: 6
-        },
-        {
-          title: "☀️ Brightest Day",
-          info: "Après Blackest Night",
-          type: "parallel",
-          category: "dc",
-          section: 4,
-          item: 7
-        },
-        {
-          title: "⏳ Flashpoint",
-          info: "Fin de l'ancienne continuité",
-          type: "event",
-          category: "dc",
-          section: 4,
-          item: 7
-        }
-      ]
-    },
-
-    {
-      level: 6,
-      nodes: [
-        {
-          title: "⚡ NEW 52",
-          info: "Nouvelle continuité",
-          type: "main",
-          category: "dc",
-          section: 5,
-          item: 0
-        }
-      ]
-    },
-
-    {
-      level: 7,
-      nodes: [
-        {
-          title: "🦇 Batman — Hiboux",
-          info: "Gotham",
-          type: "main",
-          category: "dc",
-          section: 5,
-          item: 1
-        },
-        {
-          title: "🦸 Superman",
-          info: "New 52",
-          type: "parallel",
-          category: "dc",
-          section: 5,
-          item: 6
-        },
-        {
-          title: "⚡ Flash",
-          info: "New 52",
-          type: "parallel",
-          category: "dc",
-          section: 5,
-          item: 9
-        },
-        {
-          title: "🌊 Aquaman",
-          info: "New 52",
-          type: "parallel",
-          category: "dc",
-          section: 5,
-          item: 7
-        }
-      ]
-    },
-
-    {
-      level: 8,
-      nodes: [
-        {
-          title: "⚔️ Trinity War",
-          info: "Crise",
-          type: "event",
-          category: "dc",
-          section: 6,
-          item: 0
-        },
-        {
-          title: "☠️ Forever Evil",
-          info: "Syndicat du Crime",
-          type: "event",
-          category: "dc",
-          section: 6,
-          item: 1
-        },
-        {
-          title: "🌐 Convergence",
-          info: "Univers multiples",
-          type: "event",
-          category: "dc",
-          section: 6,
-          item: 4
-        }
-      ]
-    },
-
-    {
-      level: 9,
-      nodes: [
-        {
-          title: "🔄 DC Universe Rebirth",
-          info: "Nouvelle évolution",
-          type: "main",
-          category: "dc",
-          section: 7,
-          item: 0
-        }
-      ]
-    },
-
-    {
-      level: 10,
-      nodes: [
-        {
-          title: "🦇 Batman Rebirth",
-          info: "Tom King",
-          type: "parallel",
-          category: "dc",
-          section: 7,
-          item: 3
-        },
-        {
-          title: "🦸 Superman Rebirth",
-          info: "Tomasi / Gleason",
-          type: "parallel",
-          category: "dc",
-          section: 7,
-          item: 1
-        },
-        {
-          title: "⚡ Flash Rebirth",
-          info: "Joshua Williamson",
-          type: "parallel",
-          category: "dc",
-          section: 7,
-          item: 9
-        }
-      ]
-    },
-
-    {
-      level: 11,
-      nodes: [
-        {
-          title: "🦇 METAL",
-          info: "Multivers sombre",
-          type: "event",
-          category: "dc",
-          section: 8,
-          item: 0
-        },
-        {
-          title: "🤣 Batman Who Laughs",
-          info: "Univers sombre",
-          type: "alternate",
-          category: "dc",
-          section: 8,
-          item: 3
-        }
-      ]
-    },
-
-    {
-      level: 12,
-      nodes: [
-        {
-          title: "💀 DEATH METAL",
-          info: "Crise du Multivers",
-          type: "event",
-          category: "dc",
-          section: 8,
-          item: 4
-        }
-      ]
-    },
-
-    {
-      level: 13,
-      nodes: [
-        {
-          title: "🌌 Infinite Frontier",
-          info: "Multivers restauré",
-          type: "main",
-          category: "dc",
-          section: 9,
-          item: 0
-        },
-        {
-          title: "🌑 Justice League Incarnate",
-          info: "Multivers",
-          type: "parallel",
-          category: "dc",
-          section: 9,
-          item: 1
-        }
-      ]
-    },
-
-    {
-      level: 14,
-      nodes: [
-        {
-          title: "⚫ Dark Crisis",
-          info: "Nouvelle crise",
-          type: "event",
-          category: "dc",
-          section: 9,
-          item: 2
-        },
-        {
-          title: "🌱 Lazarus Planet",
-          info: "Conséquences",
-          type: "parallel",
-          category: "dc",
-          section: 9,
-          item: 3
-        },
-        {
-          title: "👻 Knight Terrors",
-          info: "Événement parallèle",
-          type: "parallel",
-          category: "dc",
-          section: 9,
-          item: 4
-        }
-      ]
-    },
-
-    {
-      level: 15,
-      nodes: [
-        {
-          title: "💥 Absolute Power",
-          info: "Crise moderne",
-          type: "event",
-          category: "dc",
-          section: 9,
-          item: 5
-        }
-      ]
-    },
-
-    {
-      level: 16,
-      nodes: [
-        {
-          title: "🌎 Histoires alternatives",
-          info: "À lire séparément",
-          type: "alternate",
-          category: "dc",
-          section: 10,
-          item: 0
-        }
-      ]
-    }
-
-  ],
-
-
-  marvel: [
-
-    {
-      level: 0,
-      nodes: [
-        {
-          title: "🌌 Origines Marvel",
-          info: "Univers Marvel classique",
-          type: "main",
-          category: "marvel",
-          section: 0,
-          item: 0
-        }
-      ]
-    },
-
-    {
-      level: 1,
-      nodes: [
-        {
-          title: "🕷️ Spider-Man",
-          info: "Amazing Spider-Man",
-          type: "main",
-          category: "marvel",
-          section: 0,
-          item: 2
-        },
-        {
-          title: "🛡️ Avengers",
-          info: "Formation",
-          type: "parallel",
-          category: "marvel",
-          section: 0,
-          item: 1
-        },
-        {
-          title: "❌ X-Men",
-          info: "Mutants",
-          type: "parallel",
-          category: "marvel",
-          section: 0,
-          item: 4
-        }
-      ]
-    },
-
-    {
-      level: 2,
-      nodes: [
-        {
-          title: "🕷️ Spider-Man classique",
-          info: "Romita",
-          type: "main",
-          category: "marvel",
-          section: 0,
-          item: 3
-        },
-        {
-          title: "❌ Phénix Noir",
-          info: "X-Men",
-          type: "event",
-          category: "marvel",
-          section: 2,
-          item: 1
-        },
-        {
-          title: "😈 Daredevil",
-          info: "Frank Miller",
-          type: "parallel",
-          category: "marvel",
-          section: 3,
-          item: 0
-        }
-      ]
-    },
-
-    {
-      level: 3,
-      nodes: [
-        {
-          title: "🌌 Secret Wars",
-          info: "1984",
-          type: "event",
-          category: "marvel",
-          section: 0,
-          item: 9
-        },
-        {
-          title: "🕷️ Kraven",
-          info: "Dernière chasse",
-          type: "parallel",
-          category: "marvel",
-          section: 0,
-          item: 8
-        }
-      ]
-    },
-
-    {
-      level: 4,
-      nodes: [
-        {
-          title: "🧬 Ère des clones",
-          info: "Spider-Man",
-          type: "parallel",
-          category: "marvel",
-          section: 1,
-          item: 0
-        },
-        {
-          title: "🌌 Infinity Gauntlet",
-          info: "Thanos",
-          type: "event",
-          category: "marvel",
-          section: 4,
-          item: 0
-        },
-        {
-          title: "❌ Ère d'Apocalypse",
-          info: "Univers mutant",
-          type: "alternate",
-          category: "marvel",
-          section: 2,
-          item: 4
-        }
-      ]
-    },
-
-    {
-      level: 5,
-      nodes: [
-        {
-          title: "🛡️ New Avengers",
-          info: "Nouvelle équipe",
-          type: "main",
-          category: "marvel",
-          section: 1,
-          item: 4
-        },
-        {
-          title: "❌ New X-Men",
-          info: "Grant Morrison",
-          type: "parallel",
-          category: "marvel",
-          section: 2,
-          item: 5
-        }
-      ]
-    },
-
-    {
-      level: 6,
-      nodes: [
-        {
-          title: "🟥 House of M",
-          info: "Réalité modifiée",
-          type: "event",
-          category: "marvel",
-          section: 1,
-          item: 5
-        },
-        {
-          title: "⚔️ Civil War",
-          info: "Guerre civile",
-          type: "event",
-          category: "marvel",
-          section: 1,
-          item: 6
-        }
-      ]
-    },
-
-    {
-      level: 7,
-      nodes: [
-        {
-          title: "👽 Secret Invasion",
-          info: "Skrulls",
-          type: "event",
-          category: "marvel",
-          section: 1,
-          item: 8
-        },
-        {
-          title: "🖤 Dark Reign",
-          info: "Après Civil War",
-          type: "parallel",
-          category: "marvel",
-          section: 1,
-          item: 9
-        }
-      ]
-    },
-
-    {
-      level: 8,
-      nodes: [
-        {
-          title: "⚔️ Siege",
-          info: "Fin de l'ère Dark Reign",
-          type: "event",
-          category: "marvel",
-          section: 1,
-          item: 10
-        },
-        {
-          title: "🌌 Annihilation",
-          info: "Guerre cosmique",
-          type: "parallel",
-          category: "marvel",
-          section: 4,
-          item: 3
-        }
-      ]
-    },
-
-    {
-      level: 9,
-      nodes: [
-        {
-          title: "🌌 Avengers — Hickman",
-          info: "Construction du conflit",
-          type: "main",
-          category: "marvel",
-          section: 5,
-          item: 0
-        },
-        {
-          title: "♾️ Infinity",
-          info: "Thanos",
-          type: "event",
-          category: "marvel",
-          section: 4,
-          item: 7
-        }
-      ]
-    },
-
-    {
-      level: 10,
-      nodes: [
-        {
-          title: "⏳ Time Runs Out",
-          info: "Incursions",
-          type: "event",
-          category: "marvel",
-          section: 5,
-          item: 2
-        }
-      ]
-    },
-
-    {
-      level: 11,
-      nodes: [
-        {
-          title: "🌌 SECRET WARS 2015",
-          info: "Fin de l'univers",
-          type: "event",
-          category: "marvel",
-          section: 5,
-          item: 3
-        }
-      ]
-    },
-
-    {
-      level: 12,
-      nodes: [
-        {
-          title: "🧬 House of X / Powers of X",
-          info: "Nouvelle ère mutante",
-          type: "main",
-          category: "marvel",
-          section: 6,
-          item: 1
-        },
-        {
-          title: "🕷️ Spider-Verse",
-          info: "Multivers arachnide",
-          type: "parallel",
-          category: "marvel",
-          section: 6,
-          item: 0
-        }
-      ]
-    },
-
-    {
-      level: 13,
-      nodes: [
-        {
-          title: "🖤 Absolute Carnage",
-          info: "Symbiotes",
-          type: "event",
-          category: "marvel",
-          section: 7,
-          item: 0
-        }
-      ]
-    },
-
-    {
-      level: 14,
-      nodes: [
-        {
-          title: "👑 King in Black",
-          info: "Knull",
-          type: "event",
-          category: "marvel",
-          section: 7,
-          item: 1
-        }
-      ]
-    },
-
-    {
-      level: 15,
-      nodes: [
-        {
-          title: "🌎 Univers alternatifs",
-          info: "Ultimate, Noir, Old Man Logan...",
-          type: "alternate",
-          category: "marvel",
-          section: 8,
-          item: 0
-        }
-      ]
-    }
-
-  ]
-
-};
-
-
-/* =========================================================
-   ENRICHISSEMENT MASSIF DC / MARVEL
-   - Ajouts uniquement : présentation et fonctionnalités intactes.
-   - Déduplication automatique par titre.
-========================================================= */
-
-const encyclopedicAdditions = {
-  "dc": {
-    "0": [
-      "Batman : Le Monastère hanté",
-      "Batman : L’Ange noir",
-      "Batman : Le Cœur de Hush",
-      "Batman : Noël",
-      "Batman : Terre Un",
-      "Batman : Année 100",
-      "Batman : Le Chevalier noir — La Légende de Dark Knight",
-      "Superman : Origines secrètes",
-      "Superman : Birthright",
-      "Superman : Pour toutes les saisons",
-      "Superman : Kryptonite",
-      "Superman : Les Derniers Jours de Krypton",
-      "Superman : Le Dernier Fils",
-      "Superman : Brainiac",
-      "Wonder Woman : Dieux et mortels",
-      "Wonder Woman : La Jauge de guerre",
-      "Justice League International : Légendes",
-      "Justice Society of America : L’Âge d’or",
-      "The Flash : La Guerre des Rogues",
-      "Green Lantern : Emerald Twilight",
-      "Green Lantern : Emerald Dawn",
-      "Green Arrow : Année Un",
-      "Green Arrow : The Longbow Hunters",
-      "Aquaman : Sub-Diego",
-      "Swamp Thing : La Créature du marais",
-      "Swamp Thing : Saga of the Swamp Thing",
-      "John Constantine : Hellblazer — Habitant de l’enfer",
-      "Animal Man : Le Gospel du Coyote",
-      "Booster Gold : 52 Pickup",
-      "Batgirl : Année Un",
-      "Robin : Année Un",
-      "Nightwing : Année Un",
-      "Catwoman : Selina’s Big Score",
-      "Harley Quinn : Mad Love",
-      "Supergirl : Being Super",
-      "Shazam : Les Monstres Society",
-      "DC : La Légion des Super-Héros — La Grande Ténèbre"
-    ],
-    "1": [
-      "Batman : Prey",
-      "Batman : Venom",
-      "Batman : Sword of Azrael",
-      "Batman : La Vengeance de Bane",
-      "Batman : Prodigal",
-      "Batman : Contagion",
-      "Batman : Legacy",
-      "Batman : Cataclysme",
-      "Batman : New Gotham",
-      "Batman : Evolution",
-      "Batman : Officer Down",
-      "Batman : Bruce Wayne : Fugitive",
-      "Batman : Bruce Wayne : Murderer?",
-      "Batman : Hush Returns",
-      "Batman : Under the Hood",
-      "Batman : War Games",
-      "Batman : War Crimes",
-      "Batman : As the Crow Flies",
-      "Batman : Face the Face",
-      "Batman : Heart of Hush",
-      "Batman : R.I.P.",
-      "Gotham Central",
-      "Gotham City Monsters",
-      "Batwoman : Elegy",
-      "Birds of Prey : Of Like Minds",
-      "Nightwing : Leaping into the Light",
-      "Robin : Un deuil dans la famille",
-      "Batgirl : Silence of the Lambs",
-      "Azrael : Fallen Angel",
-      "Catwoman : Trail of the Catwoman",
-      "Catwoman : When in Rome",
-      "Superman : For Tomorrow",
-      "Superman : Un Superman à Metropolis",
-      "Superman : Les quatre saisons",
-      "Wonder Woman : Hiketeia",
-      "JLA : Earth 2",
-      "JLA : Heaven’s Ladder",
-      "JLA : Tower of Babel",
-      "Teen Titans : A Kid’s Game",
-      "Teen Titans : Family Lost",
-      "Outsiders : The Good Fight",
-      "Green Lantern Corps : Recharge",
-      "Green Arrow : Quiver",
-      "The Flash : Wonderland",
-      "The Flash : Blitz",
-      "The Flash : Ignition",
-      "Justice League : The Nail"
-    ],
-    "2": [
-      "JSA : Stealing Thunder",
-      "JSA : Princes of Darkness",
-      "JSA : The Golden Age",
-      "JSA : Black Reign",
-      "JSA : Mixed Signals",
-      "Seven Soldiers : Zatanna",
-      "Seven Soldiers : Mister Miracle",
-      "Seven Soldiers : Klarion",
-      "The Question : Five Books of Blood",
-      "Gotham Central : In the Line of Duty",
-      "Identity Crisis : Companion",
-      "Countdown to Infinite Crisis",
-      "Villains United",
-      "The OMAC Project",
-      "Day of Vengeance",
-      "Rann-Thanagar War",
-      "The Return of Donna Troy",
-      "Infinite Crisis : Aftermath",
-      "52 : The Complete Series",
-      "Teen Titans : The Judas Contract",
-      "Teen Titans : Titans Around the World",
-      "Outsiders : The Good Fight",
-      "Green Lantern : No Fear",
-      "Green Lantern : Revenge of the Green Lanterns",
-      "Green Lantern : Wanted — Hal Jordan",
-      "Green Lantern : Secret Origin",
-      "Sinestro Corps War",
-      "Justice League : The Tornado’s Path",
-      "Justice League : The Lightning Saga",
-      "Justice League : The Injustice League",
-      "Final Crisis : Legion of Three Worlds",
-      "Booster Gold : Blue and Gold",
-      "Blue Beetle : Shellshocked",
-      "Manhunter : Street Justice",
-      "Checkmate : A Matter of Trust",
-      "Birds of Prey : Between Dark and Dawn",
-      "Superman : Up, Up and Away",
-      "Superman : Last Son",
-      "Wonder Woman : The Circle",
-      "Flash : The Fastest Man Alive",
-      "Aquaman : Sword of Atlantis"
-    ],
-    "3": [
-      "52 : Aftermath — The Four Horsemen",
-      "52 : The Origin of the Fourth World",
-      "Countdown : Arena",
-      "Death of the New Gods",
-      "Salvation Run",
-      "Justice League of America : The Tornado’s Path",
-      "Justice League : The Lightning Saga",
-      "Final Crisis : Rage of the Red Lanterns",
-      "Final Crisis : Legion of Three Worlds",
-      "Final Crisis : Resist",
-      "Final Crisis : Revelations",
-      "Final Crisis : Secret Files",
-      "Batman : Whatever Happened to the Caped Crusader?",
-      "Batman : The Black Glove",
-      "Batman : R.I.P. — The Deluxe Edition",
-      "Superman : Brainiac",
-      "Superman : New Krypton",
-      "Superman : World of New Krypton",
-      "Superman : War of the Supermen",
-      "Green Lantern : Agent Orange",
-      "Green Lantern : Rage of the Red Lanterns",
-      "Green Lantern Corps : Emerald Eclipse",
-      "Booster Gold : Reality Lost",
-      "Justice League of America : Sanctuary",
-      "Titans : Fractured",
-      "Teen Titans : Deathtrap",
-      "Gotham City Sirens : Union",
-      "Batgirl : The Flood",
-      "Red Robin : The Grail",
-      "Azrael : Azrael Agent of the Bat"
-    ],
-    "4": [
-      "Batman : Sombre reflet",
-      "Batman : The Black Mirror",
-      "Batman : Gates of Gotham",
-      "Batman : Incorporated — Leviathan Strikes",
-      "Batman : Incorporated — Demon Star",
-      "Batman : Incorporated — Gotham’s Most Wanted",
-      "Batman : The Return",
-      "Superman : Grounded",
-      "Superman : Secret Origin",
-      "Superman : Reign of the Doomsdays",
-      "Superman : Last Stand of New Krypton",
-      "Wonder Woman : Odyssey",
-      "Wonder Woman : War of the Gods",
-      "Flash : The Dastardly Death of the Rogues",
-      "Flash : Road to Flashpoint",
-      "Green Lantern : Brightest Day",
-      "Green Lantern : War of the Green Lanterns",
-      "Green Lantern Corps : Revolt of the Alpha Lanterns",
-      "Justice League : The Dark Things",
-      "Justice League : The Rise of Arsenal",
-      "Justice League : Generation Lost",
-      "Justice Society of America : Axis of Evil",
-      "Booster Gold : Day of Death",
-      "Titans : Titans of Tomorrow",
-      "Teen Titans : Beast Boys and Girls",
-      "Red Hood and the Outlaws : Redemption",
-      "Batwoman : Hydrology",
-      "Batgirl : The Lesson",
-      "Catwoman : When in Rome",
-      "Birds of Prey : End Run",
-      "Swamp Thing : The Root of All Evil",
-      "Justice League : Generation Lost — Volume 2",
-      "Flashpoint : Batman — Knight of Vengeance",
-      "Flashpoint : Superman",
-      "Flashpoint : Wonder Woman and the Furies",
-      "Flashpoint : Kid Flash Lost",
-      "Flashpoint : Project Superman",
-      "Flashpoint : Lois Lane and the Resistance"
-    ],
-    "5": [
-      "Justice League : Origines",
-      "Justice League : Le Trône d’Atlantis",
-      "Justice League : Le Virus Amazo",
-      "Justice League : Le Règne du Mal",
-      "Justice League : La Guerre de Darkseid",
-      "Batman : La Mort de la famille",
-      "Batman : L’An Zéro — Secret City",
-      "Batman : L’An Zéro — Dark City",
-      "Batman : Endgame",
-      "Batman : Superheavy",
-      "Batman : Bloom",
-      "Batman : Épilogue",
-      "Batman : All-Star Batman",
-      "Batman : I Am Gotham",
-      "Batman : I Am Suicide",
-      "Batman : I Am Bane",
-      "Batman : War of Jokes and Riddles",
-      "Batman : Rules of Engagement",
-      "Batman : Bride or Burglar",
-      "Detective Comics : The New 52 — Faces of Death",
-      "Detective Comics : Emperor Penguin",
-      "Detective Comics : Gothtopia",
-      "Detective Comics : Icarus",
-      "Detective Comics : Anarky",
-      "Superman : La Menace de Metropolis",
-      "Superman : La Mort de Superman — New 52",
-      "Superman : Héros et vilains",
-      "Superman : Les Hommes d’acier — Deluxe",
-      "Action Comics : Superman et la Légion des Super-Héros",
-      "Action Comics : Hybrid",
-      "Wonder Woman : Sang",
-      "Wonder Woman : Le Cercle",
-      "Wonder Woman : La Guerre",
-      "Wonder Woman : La Chair",
-      "Aquaman : Le Trône d’Atlantide",
-      "Aquaman : La Mort d’un Roi",
-      "Aquaman : Sous la surface",
-      "Aquaman : Maelstrom",
-      "Flash : De l’avant",
-      "Flash : La Guerre des Rogues",
-      "Flash : Révolution",
-      "Green Lantern : Sinestro",
-      "Green Lantern : La Colère du Premier Lantern",
-      "Green Lantern Corps : Insurrection",
-      "Green Lantern Corps : Recherché — Hal Jordan",
-      "Justice League Dark : La Maison des mystères",
-      "Justice League Dark : Le Chemin de la sorcière",
-      "Justice League Dark : La Guerre de la Trinité",
-      "Teen Titans : Beast Boys and Girls",
-      "Red Hood and the Outlaws : The Lost",
-      "Batwoman : To Drown the World",
-      "Batgirl : Wanted",
-      "Nightwing : Traps and Trapezes",
-      "Nightwing : Night of the Owls",
-      "Suicide Squad : Kicked in the Teeth",
-      "Suicide Squad : Basilisk Rising",
-      "Stormwatch : The Dark Side",
-      "Vibe : Breach",
-      "Earth 2 : La Société des super-héros",
-      "Worlds’ Finest : Hunt and Be Hunted",
-      "Swamp Thing : Rotworld",
-      "Animal Man : The Hunt",
-      "Animal Man : Splinter Species",
-      "Dial H : Exchange",
-      "I, Vampire : Tainted Love",
-      "Justice League of America : I, Vampire",
-      "Katana : Soule of the Dragon"
-    ],
-    "6": [
-      "Trinity War : Prelude",
-      "Forever Evil : Blight",
-      "Forever Evil : Arkham War",
-      "Forever Evil : Rogues Rebellion",
-      "Forever Evil : A.R.G.U.S.",
-      "Forever Evil : Justice League",
-      "Justice League : Forever Evil",
-      "Batman : Zero Year — Dark City",
-      "Batman : Eternal",
-      "Batman : Endgame",
-      "Superman : Doomed",
-      "Superman : Men of Tomorrow",
-      "Wonder Woman : First Born",
-      "Aquaman : Sea of Storms",
-      "Green Lantern : Godhead",
-      "Sinestro : Futures End",
-      "Flash : Futures End",
-      "Batman : Futures End",
-      "Earth 2 : World’s End",
-      "Earth 2 : Futures End",
-      "Convergence : Batman — Shadow of the Bat",
-      "Convergence : Superman — Man of Steel",
-      "Convergence : Justice League International",
-      "Convergence : Wonder Woman",
-      "Convergence : Flashpoint",
-      "Convergence : Green Lantern/Parallax",
-      "Convergence : New Teen Titans",
-      "Convergence : Harley Quinn",
-      "Convergence : Nightwing/Oracle",
-      "Convergence : Swamp Thing",
-      "Convergence : Justice League",
-      "Convergence : Suicide Squad",
-      "Convergence : Aquaman"
-    ],
-    "7": [
-      "Batman : Je suis Gotham",
-      "Batman : Je suis Suicide",
-      "Batman : Je suis Bane",
-      "Batman : La Guerre des plaisanteries et des énigmes",
-      "Batman : La Nuit des monstres",
-      "Batman : L’Ordre des ombres",
-      "Batman : La Cour des hiboux — Rebirth",
-      "Batman : The War of Jokes and Riddles",
-      "Batman : Cold Days",
-      "Batman : Knightmares",
-      "Batman : City of Bane",
-      "Batman : Their Dark Designs",
-      "Batman : Joker War — Prelude",
-      "Batman : Joker War — Aftermath",
-      "Detective Comics : Rise of the Batmen",
-      "Detective Comics : A Lonely Place of Living",
-      "Detective Comics : On the Outside",
-      "Detective Comics : Arkham Knight",
-      "Nightwing : Better Than Batman",
-      "Nightwing : The Bleeding Heart",
-      "Nightwing : The Untouchable",
-      "Nightwing : The Gray Son Legacy",
-      "Nightwing : Le Saut dans la lumière",
-      "Superman : Reborn",
-      "Superman : Multiplicity",
-      "Superman : Imperius Lex",
-      "Superman : Bizarroverse",
-      "Superman : The Unity Saga",
-      "Superman : La Maison de Kent",
-      "Action Comics : Rebirth",
-      "Action Comics : Superman Reborn",
-      "Wonder Woman : L’Année Un",
-      "Wonder Woman : Mensonges",
-      "Wonder Woman : La Vérité",
-      "Wonder Woman : Les Enfants des Dieux",
-      "Wonder Woman : La Fin de la ligne",
-      "Flash : Lightning Strikes Twice",
-      "Flash : Speed of Darkness",
-      "Flash : Forces in Motion",
-      "Flash : Perfect Storm",
-      "Flash : Flash War",
-      "Flash : Year One",
-      "Green Lanterns : Rage Planet",
-      "Green Lanterns : Polarity",
-      "Green Lanterns : A World of Our Own",
-      "Hal Jordan and the Green Lantern Corps : Red Planet",
-      "Hal Jordan and the Green Lantern Corps : Quest for Hope",
-      "Hal Jordan and the Green Lantern Corps : Darkstars Rising",
-      "Aquaman : The Drowning",
-      "Aquaman : Black Manta Rising",
-      "Aquaman : Crown of Atlantis",
-      "Aquaman : Kingslayer",
-      "Justice League : Timeless",
-      "Justice League : No Justice",
-      "Justice League : Graveyard of Gods",
-      "Justice League : Hawkworld",
-      "Justice League Dark : The Last Age of Magic",
-      "Justice League Dark : Lords of Order",
-      "Teen Titans : Damian Knows Best",
-      "Teen Titans : The Rise of Aqualad",
-      "Teen Titans : The Return of Kid Flash",
-      "Suicide Squad : Going Sane",
-      "Suicide Squad : The Black Vault",
-      "Harley Quinn : Die Laughing",
-      "Harley Quinn : Old Lady Harley",
-      "Red Hood : Requiem for an Archer",
-      "Batgirl : Beyond Burnside",
-      "Batgirl : Son of Penguin",
-      "Batwoman : The Many Arms of Death",
-      "Green Arrow : The Death and Life of Oliver Queen",
-      "Green Arrow : Hard-Traveling Hero — Rebirth",
-      "Justice League of America : The Extremists",
-      "Justice League of America : Panic in the Microverse",
-      "Doomsday Clock",
-      "Heroes in Crisis",
-      "Flash Forward",
-      "Event Leviathan",
-      "Leviathan Hunt",
-      "Young Justice : Gemworld",
-      "Freedom Fighters : Rise of a Nation",
-      "Shazam! : The Seven Magic Lands",
-      "Shazam! : Origins",
-      "Metal Men : Full Metal Jacket"
-    ],
-    "8": [
-      "Batman : The Drowned",
-      "Batman : The Merciless",
-      "Batman : The Red Death",
-      "Batman : The Murder Machine",
-      "Batman : The Dawnbreaker",
-      "Batman : The Devastator",
-      "Batman : The Batman Who Laughs",
-      "Batman : Last Knight on Earth",
-      "Justice League : No Justice",
-      "Justice League : The Totality",
-      "Justice League : The Sixth Dimension",
-      "Justice League : Justice Lost",
-      "Justice League : Hawkworld",
-      "Justice League : The Justice Doom War",
-      "Flash : Year One",
-      "Flash : Force Quest",
-      "Flash : Finish Line",
-      "Green Lantern : Blackstars",
-      "Green Lantern : Season Two",
-      "Justice League : Darkseid War — Expanded",
-      "Tales from the Dark Multiverse : Batman Knightfall",
-      "Tales from the Dark Multiverse : Death of Superman",
-      "Tales from the Dark Multiverse : Blackest Night",
-      "Tales from the Dark Multiverse : Flashpoint",
-      "Tales from the Dark Multiverse : Infinite Crisis",
-      "Dark Nights : Death Metal — Speed Metal",
-      "Dark Nights : Death Metal — Multiverse’s End",
-      "Dark Nights : Death Metal — Trinity Crisis",
-      "Dark Nights : Death Metal — Secret Origin",
-      "Dark Nights : Death Metal — Rise of the New God",
-      "Dark Nights : Death Metal — War of the Multiverses",
-      "Dark Nights : Death Metal — The Last 52",
-      "Death Metal : Guidebook",
-      "Death Metal : The Last Stories of the DC Universe"
-    ],
-    "9": [
-      "Infinite Frontier : Secret Files",
-      "Infinite Frontier : Secret Files — Flash",
-      "Infinite Frontier : Justice League Incarnate",
-      "Justice League Incarnate : The Complete Series",
-      "Justice League : The Great Darkness Saga",
-      "Shadow War",
-      "Robin : Shadow War",
-      "Deathstroke Inc. : Shadow War",
-      "Dark Crisis : Worlds Without a Justice League — Superman",
-      "Dark Crisis : Worlds Without a Justice League — Wonder Woman",
-      "Dark Crisis : Young Justice",
-      "Dark Crisis : The Deadly Green",
-      "Dark Crisis : War Zone",
-      "Dark Crisis : Big Bang",
-      "Lazarus Planet : Assault on Krypton",
-      "Lazarus Planet : Revenge of the Gods",
-      "Lazarus Planet : Dark Fate",
-      "Lazarus Planet : Omega",
-      "Knight Terrors : First Blood",
-      "Knight Terrors : Batman",
-      "Knight Terrors : Joker",
-      "Knight Terrors : Superman",
-      "Knight Terrors : Wonder Woman",
-      "Knight Terrors : Titans",
-      "Knight Terrors : Night’s End",
-      "Beast World",
-      "Titans : Beast World Tour",
-      "Green Lantern : War Journal",
-      "Green Lantern : Out of Time",
-      "Batman : The Joker Year One",
-      "Batman : Dark Prisons",
-      "Superman : House of Brainiac",
-      "Superman : Absolute Power",
-      "Wonder Woman : Absolute Power",
-      "Green Arrow : Absolute Power",
-      "Shazam : Absolute Power",
-      "Suicide Squad : Dream Team",
-      "Absolute Power",
-      "DC All In Special",
-      "Justice League Unlimited : DC All In",
-      "Batman : DC All In",
-      "Superman : DC All In",
-      "Wonder Woman : DC All In",
-      "Green Lantern : DC All In",
-      "The Flash : DC All In",
-      "Absolute Batman",
-      "Absolute Superman",
-      "Absolute Wonder Woman",
-      "Absolute Flash",
-      "Absolute Green Lantern",
-      "Absolute Martian Manhunter",
-      "Absolute Power — Special Edition",
-      "DC K.O.",
-      "Justice League Unlimited : DC K.O.",
-      "Batman : DC K.O.",
-      "Superman : DC K.O."
-    ],
-    "10": [
-      "Batman : The White Knight",
-      "Batman : Curse of the White Knight",
-      "Batman : Beyond the White Knight",
-      "Batman : White Knight Presents Harley Quinn",
-      "Batman : White Knight Presents Red Hood",
-      "Batman : White Knight Presents Generation Joker",
-      "Batman : Damned",
-      "Batman : Last Knight on Earth",
-      "Batman : Earth One",
-      "Batman : Earth One — Volume Two",
-      "Batman : Earth One — Volume Three",
-      "Superman : Red Son",
-      "Superman : American Alien",
-      "Superman : Secret Identity",
-      "Superman : For All Seasons",
-      "Superman : Space Age",
-      "Superman : Earth One",
-      "Superman : Earth One — Volume Two",
-      "Superman : Earth One — Volume Three",
-      "Superman : Emperor Joker",
-      "Superman : Whatever Happened to the Man of Tomorrow?",
-      "Superman : The Last God of Krypton",
-      "Kingdom Come",
-      "Kingdom Come : Revelation",
-      "JLA : The Nail",
-      "JLA : Another Nail",
-      "JLA : Earth 2",
-      "JLA : The Tower of Babel",
-      "Justice League : New Frontier",
-      "Batman : The Long Halloween — The Last Halloween",
-      "Batman : The Dark Knight Returns",
-      "Batman : The Dark Knight Strikes Again",
-      "Batman : The Dark Knight III — The Master Race",
-      "Batman : Year 100",
-      "Batman : Europa",
-      "Batman : Noël",
-      "Batman : Gotham by Gaslight",
-      "Batman : The Doom That Came to Gotham",
-      "Batman : Ninja",
-      "Batman : The Imposter",
-      "Batman : One Bad Day — The Riddler",
-      "Batman : One Bad Day — Mr. Freeze",
-      "Batman : One Bad Day — Bane",
-      "Batman : One Bad Day — Catwoman",
-      "Batman : One Bad Day — Clayface",
-      "Batman : One Bad Day — Ra’s al Ghul",
-      "Wonder Woman : Dead Earth",
-      "Wonder Woman : Historia",
-      "Wonder Woman : Earth One",
-      "Flashpoint Beyond",
-      "DCeased",
-      "DCeased : Unkillables",
-      "DCeased : Dead Planet",
-      "DC vs Vampires",
-      "Injustice : Gods Among Us",
-      "Injustice : Ground Zero",
-      "Injustice 2",
-      "DC Comics : Bombshells",
-      "Gotham by Gaslight",
-      "Justice League : Gods and Monsters",
-      "Superman : Earth 2",
-      "Batman : White Knight — Generation Joker",
-      "Harley Quinn : Black + White + Red",
-      "Batman : Black Mirror — Deluxe",
-      "Watchmen : Before Watchmen",
-      "Watchmen : Rorschach",
-      "Watchmen : Doomsday Clock",
-      "The Multiversity",
-      "Multiversity : Ultra Comics",
-      "Multiversity : Pax Americana",
-      "Multiversity : Thunderworld",
-      "Multiversity : The Just",
-      "Multiversity : Society of Super-Heroes",
-      "Multiversity : Guidebook"
+ // --- CATÉGORIE COMICS DC ---
+dc: [
+
+  {
+    title: "🌅 Origines et débuts de l'univers moderne",
+    items: [
+      { title: "Batman : Année Un — Frank Miller / David Mazzucchelli", volumes: 1 },
+      { title: "Superman : Secret Origin — Geoff Johns / Gary Frank", volumes: 1 },
+      { title: "Superman : Birthright — Mark Waid / Leinil Francis Yu", volumes: 1 },
+      { title: "Wonder Woman : Année Un — Greg Rucka / Nicola Scott", volumes: 1 },
+      { title: "Green Lantern : Secret Origin — Geoff Johns / Ivan Reis", volumes: 1 },
+      { title: "Flash : Rebirth — Geoff Johns / Ethan Van Sciver", volumes: 1 },
+      { title: "Batman : Le Long Halloween — Jeph Loeb / Tim Sale", volumes: 1 },
+      { title: "Batman : Amère Victoire — Jeph Loeb / Tim Sale", volumes: 1 },
+      { title: "Catwoman : À Rome — Jeph Loeb / Tim Sale", volumes: 1 },
+      { title: "Batman : La Proie — Doug Moench / Paul Gulacy", volumes: 1 },
+      { title: "Batman : Venin — Doug Moench / Klaus Janson", volumes: 1 },
+      { title: "Batman : Le Culte — Jim Starlin / Bernie Wrightson", volumes: 1 },
+      { title: "Batman : Killing Joke — Alan Moore / Brian Bolland", volumes: 1 },
+      { title: "Batman : Arkham Asylum — Grant Morrison / Dave McKean", volumes: 1 },
+      { title: "Batman : Gothic — Grant Morrison / Klaus Janson", volumes: 1 }
     ]
   },
-  "marvel": {
-    "0": [
-      "Fantastic Four : La Trilogie de Galactus",
-      "Fantastic Four : La Saga de Galactus",
-      "Fantastic Four : La Guerre des Quatre Cités",
-      "Fantastic Four : This Man, This Monster",
-      "Fantastic Four : The Coming of Galactus",
-      "Silver Surfer : Parabole",
-      "Silver Surfer : Requiem",
-      "Thor : Tales of Asgard",
-      "Thor : Ragnarok",
-      "Thor : The Mighty Thor — Simonson",
-      "Iron Man : Demon in a Bottle",
-      "Iron Man : Armor Wars",
-      "Iron Man : Extremis",
-      "Captain America : Winter Soldier",
-      "Captain America : The Death of Captain America",
-      "Black Panther : Who Is the Black Panther?",
-      "Black Panther : Panther’s Rage",
-      "Doctor Strange : The Oath",
-      "Doctor Strange : Triumph and Torment",
-      "Hulk : Future Imperfect",
-      "Hulk : La Planète Hulk",
-      "Hulk : World War Hulk",
-      "Daredevil : Born Again",
-      "Daredevil : The Man Without Fear",
-      "Daredevil : Guardian Devil",
-      "Elektra : Assassin",
-      "Punisher : Year One",
-      "Punisher : Born",
-      "Wolverine : Weapon X",
-      "Wolverine : Origin",
-      "Wolverine : Old Man Logan",
-      "Ghost Rider : Road to Damnation",
-      "Venom : Lethal Protector",
-      "Venom : Separation Anxiety",
-      "Black Widow : The Itsy-Bitsy Spider",
-      "Captain Marvel : The Enemy Within",
-      "Ms. Marvel : In Pursuit of Flight",
-      "She-Hulk : Single Green Female",
-      "Runaways : Pride and Joy",
-      "Young Avengers : Sidekicks",
-      "Thunderbolts : Faith in Monsters",
-      "Heroes Reborn",
-      "Marvels",
-      "Marvel : The End",
-      "Universe X",
-      "Paradise X",
-      "Earth X",
-      "Marvel 1602",
-      "Marvel Boy",
-      "Supreme Power",
-      "Sentry",
-      "Alias",
-      "Jessica Jones : Alias"
-    ],
-    "1": [
-      "Spider-Man : La Naissance d’un héros",
-      "Spider-Man : La Mort de Gwen Stacy",
-      "Spider-Man : La Mort de Harry Osborn",
-      "Spider-Man : Venom",
-      "Spider-Man : Carnage",
-      "Spider-Man : La Saga du Clone — Prélude",
-      "Spider-Man : Revelations",
-      "Spider-Man : The Final Chapter",
-      "Spider-Man : Jusqu’au bout",
-      "Spider-Man : Happy Birthday",
-      "Spider-Man : L’Autre",
-      "Spider-Man : Back in Black",
-      "Spider-Man : One More Day",
-      "Spider-Man : Brand New Day",
-      "Spider-Man : New Ways to Die",
-      "Spider-Man : American Son",
-      "Spider-Man : The Gauntlet",
-      "Spider-Man : Origin of the Species",
-      "Spider-Man : Spider-Island",
-      "Spider-Man : Ends of the Earth",
-      "Spider-Man : Dying Wish",
-      "Superior Spider-Man : My Own Worst Enemy",
-      "Superior Spider-Man : A Different Spider-Man",
-      "Amazing Spider-Man : Parker Luck",
-      "Amazing Spider-Man : Spider-Verse",
-      "Amazing Spider-Man : Worldwide",
-      "Amazing Spider-Man : Go Down Swinging",
-      "Spider-Man : Life Story",
-      "Spider-Man : Renew Your Vows",
-      "Miles Morales : Ultimate Spider-Man",
-      "Miles Morales : Spider-Man",
-      "Spider-Gwen : Most Wanted",
-      "Spider-Woman : Spider-Verse",
-      "Black Cat : The Claws",
-      "Spider-Man : Family Business",
-      "Spider-Man : Kraven’s Last Hunt — Prelude",
-      "Spider-Man : The Gauntlet — Complete Collection",
-      "Spider-Man : Big Time",
-      "Spider-Man : Spider-Island — Companion",
-      "Spider-Man : Ends of the Earth — Companion",
-      "Spider-Man : Dead No More — The Clone Conspiracy",
-      "The Clone Conspiracy",
-      "Spider-Geddon",
-      "Absolute Carnage",
-      "King in Black"
-    ],
-    "2": [
-      "X-Men : La Seconde Genèse",
-      "X-Men : La Saga de l’île de Muir",
-      "X-Men : Inferno",
-      "X-Men : X-Tinction Agenda",
-      "X-Men : Fatal Attractions",
-      "X-Men : Phalanx Covenant",
-      "X-Men : Onslaught",
-      "X-Men : Zero Tolerance",
-      "X-Men : E is for Extinction",
-      "New X-Men : Imperial",
-      "New X-Men : Riot at Xavier’s",
-      "New X-Men : Assault on Weapon Plus",
-      "New X-Men : Planet X",
-      "Astonishing X-Men : Gifted",
-      "Astonishing X-Men : Dangerous",
-      "Astonishing X-Men : Torn",
-      "Astonishing X-Men : Unstoppable",
-      "X-Men : Messiah Complex",
-      "X-Men : Messiah War",
-      "X-Men : Second Coming",
-      "X-Men : Schism",
-      "Avengers vs X-Men",
-      "Avengers vs X-Men : Consequences",
-      "Wolverine and the X-Men : Tomorrow Never Dies",
-      "X-Force : Angels and Demons",
-      "X-Force : Old Ghosts",
-      "Uncanny X-Force : Final Execution",
-      "Cable and X-Force",
-      "All-New X-Men : Yesterday’s X-Men",
-      "All-New X-Men : Here to Stay",
-      "Uncanny Avengers : The Apocalypse Twins",
-      "Uncanny Avengers : Ragnarok Now",
-      "Uncanny X-Men : Revolution",
-      "Death of X",
-      "Inhumans vs X-Men",
-      "X-Men : Blue",
-      "X-Men : Gold",
-      "X-Men : Red",
-      "Extermination",
-      "Age of X-Man",
-      "House of X",
-      "Powers of X",
-      "X-Men : Dawn of X",
-      "X-Men : X of Swords",
-      "Hellions : Badlands",
-      "Marauders : The Pride of the X-Men",
-      "X-Force : Beast",
-      "New Mutants : Demon Bear",
-      "Wolverine : Enemy of the State",
-      "Wolverine : Old Man Logan",
-      "Wolverine : Weapon X — Deluxe"
-    ],
-    "3": [
-      "Daredevil : Sous l’aile du diable",
-      "Daredevil : Roulette",
-      "Daredevil : Parts of a Hole",
-      "Daredevil : Underboss",
-      "Daredevil : Out",
-      "Daredevil : L’Été meurtrier",
-      "Daredevil : Hardcore",
-      "Daredevil : Cruel and Unusual",
-      "Daredevil : The Devil in Cell Block D",
-      "Daredevil : End of Days",
-      "Daredevil : The Omega Effect",
-      "Daredevil : Original Sin",
-      "Daredevil : The Man Without Fear — Waid",
-      "Daredevil : Chinatown",
-      "Daredevil : Supreme",
-      "Daredevil : Back in Black",
-      "Daredevil : Dark Art",
-      "Daredevil : Mayor Fisk",
-      "Daredevil : No Devils, Only God",
-      "Punisher MAX : The Slavers",
-      "Punisher MAX : The Russian",
-      "Punisher MAX : Barracuda",
-      "Punisher MAX : The Platoon",
-      "Punisher MAX : Born",
-      "Punisher : The Typhoid Mary Saga",
-      "Punisher : Welcome Back, Frank",
-      "Punisher : The Complete Collection",
-      "Moon Knight : The Bottom",
-      "Moon Knight : Midnight Nation",
-      "Moon Knight : The Death of Marc Spector",
-      "Moon Knight : From the Dead",
-      "Moon Knight : Lunatic",
-      "Moon Knight : Birth and Death",
-      "Moon Knight : The Midnight Mission",
-      "Jessica Jones : Blind Spot",
-      "Alias : Secret Origins",
-      "The Defenders : The Best Defense",
-      "Heroes for Hire : Civil War",
-      "Iron Fist : The Immortal Weapon",
-      "Iron Fist : The Living Weapon",
-      "Luke Cage : Second Chances",
-      "Power Man and Iron Fist : The Boys Are Back in Town",
-      "Elektra : Assassin",
-      "Elektra : Lives Again",
-      "Black Widow : The Name of the Rose",
-      "Black Widow : Homecoming",
-      "Black Widow : The Finely Woven Thread"
-    ],
-    "4": [
-      "Annihilation : Prologue",
-      "Annihilation : Nova",
-      "Annihilation : Silver Surfer",
-      "Annihilation : Super-Skrull",
-      "Annihilation : Ronan",
-      "Annihilation : Drax",
-      "Guardians of the Galaxy : Legacy",
-      "Guardians of the Galaxy : War of Kings",
-      "Guardians of the Galaxy : Cosmic Avengers",
-      "Nova : Annihilation",
-      "Nova : Knowhere",
-      "Nova : Realm of Kings",
-      "Secret Invasion : Fantastic Four",
-      "Secret Invasion : Inhumans",
-      "Secret Invasion : Thor",
-      "Secret Invasion : Young Avengers/Runaways",
-      "Dark Reign : The Cabal",
-      "Dark Reign : Fantastic Four",
-      "Dark Reign : Hawkeye",
-      "Dark Reign : The Hood",
-      "Dark Reign : Sinister Spider-Man",
-      "Siege : Embedded",
-      "Siege : Loki",
-      "Siege : Captain America",
-      "Fear Itself",
-      "Fear Itself : Fearsome Four",
-      "Fear Itself : The Worthy",
-      "Chaos War",
-      "The Thanos Imperative",
-      "Realm of Kings : Imperial Guard",
-      "Realm of Kings : Inhumans",
-      "War of Kings : Warriors",
-      "War of Kings : Who Will Rule?",
-      "Infinity Gauntlet : Aftermath",
-      "Thanos : The Infinity Relativity",
-      "Thanos : The Infinity Revelation",
-      "Thanos : The Infinity Finale",
-      "Original Sin",
-      "Original Sin : Thor and Loki",
-      "Original Sin : Hulk vs Iron Man",
-      "Original Sin : Avengers",
-      "Secret Empire",
-      "Secret Empire : United",
-      "Empyre",
-      "Empyre : Avengers",
-      "Empyre : Fantastic Four",
-      "Empyre : X-Men",
-      "Empyre : Aftermath",
-      "Judgment Day",
-      "Sins of Sin",
-      "King in Black : Planet of the Symbiotes",
-      "King in Black : Namor",
-      "King in Black : Thunderbolts",
-      "King in Black : Gwenom vs Carnage",
-      "Venom : Rex",
-      "Venom : The Abyss",
-      "Venom : Absolute Carnage",
-      "Venom : King in Black"
-    ],
-    "5": [
-      "Avengers : La Collection Hickman — Volume 1",
-      "Avengers : La Collection Hickman — Volume 2",
-      "New Avengers : Everything Dies",
-      "New Avengers : Infinity",
-      "Avengers : Adapt or Die",
-      "Avengers : Infinite Avengers",
-      "Avengers : World War III",
-      "Avengers : Time Runs Out — Volume 1",
-      "Avengers : Time Runs Out — Volume 2",
-      "Avengers : Time Runs Out — Volume 3",
-      "Avengers : Time Runs Out — Volume 4",
-      "Secret Wars : Battleworld",
-      "Secret Wars : Journal",
-      "Secret Wars : Old Man Logan",
-      "Secret Wars : Spider-Verse",
-      "Secret Wars : Civil War",
-      "Secret Wars : Thors",
-      "Secret Wars : Siege",
-      "Secret Wars : X-Men ’92",
-      "Secret Wars : Future Imperfect",
-      "Secret Wars : Ultimate End",
-      "Secret Wars : Squadron Sinister",
-      "Avengers : No Surrender",
-      "Avengers : No Road Home",
-      "Avengers : Age of Khonshu",
-      "Avengers : Enter the Phoenix",
-      "Avengers : The Age of Conan",
-      "Avengers : The Last Host",
-      "Avengers : The Death Hunters",
-      "Avengers : War of the Vampires",
-      "Avengers : World War She-Hulk",
-      "Avengers : Heroes Reborn",
-      "Avengers : The Death of Doctor Strange",
-      "Avengers : Beyond",
-      "Avengers : Twilight",
-      "Avengers : The Children’s Crusade",
-      "Young Avengers : The Children’s Crusade",
-      "New Avengers : Illuminati",
-      "Illuminati : Secret Invasion",
-      "Illuminati : Everything Is New",
-      "Dark Avengers : Assemble",
-      "Dark Avengers : Molecule Man",
-      "Mighty Avengers : The Ultron Initiative",
-      "Secret Avengers : The Vault",
-      "Secret Avengers : Eyes of the Dragon"
-    ],
-    "6": [
-      "Spider-Verse : Edge of Spider-Verse",
-      "Spider-Verse : Superior Spider-Man Team-Up",
-      "Spider-Verse : Spider-Verse — Companion",
-      "Spider-Gwen : Most Wanted",
-      "Spider-Gwen : Gwen Stacy",
-      "Spider-Gwen : Ghost-Spider",
-      "Spider-Man : Renew Your Vows",
-      "Spider-Man : Miles Morales",
-      "Spider-Man : Spider-Zero",
-      "Spider-Man : Spider-Bot",
-      "Spider-Verse : Spider-Geddon",
-      "Spider-Geddon : Spider-Force",
-      "Spider-Geddon : Vault of Spiders",
-      "Spider-Man : Life Story — Annual",
-      "Spider-Man : Across the Spider-Verse",
-      "Spider-Man : The End of the Spider-Verse",
-      "Spider-Man : Spider-Man 2099 — Exodus",
-      "Spider-Man 2099 : Dark Genesis",
-      "Spider-Man 2099 : Genesis",
-      "Silk : The Life and Times of Cindy Moon",
-      "Silk : Out of the Spider-Verse",
-      "Spider-Woman : Spider-Verse",
-      "Spider-Punk : Battle of the Banned",
-      "Spider-Man : India",
-      "Spider-Man Noir : Eyes Without a Face",
-      "Spider-Man : India — The Complete Collection",
-      "Spider-Boy : The End of the Spider-Verse"
-    ],
-    "7": [
-      "Venom : Lethal Protector",
-      "Venom : Separation Anxiety",
-      "Venom : The Madness",
-      "Venom : The Hunted",
-      "Venom : Planet of the Symbiotes",
-      "Venom : Dark Origin",
-      "Venom : Circle of Four",
-      "Venom : Space Knight",
-      "Venom : Rex",
-      "Venom : The Abyss",
-      "Venom : Absolute Carnage",
-      "Venom : King in Black",
-      "Carnage : Mind Bomb",
-      "Carnage : It’s a Wonderful Life",
-      "Carnage : Black, White & Blood",
-      "Carnage : Extreme Carnage",
-      "Extreme Carnage : Omega",
-      "Absolute Carnage : Immortal Hulk",
-      "Absolute Carnage : Avengers",
-      "Absolute Carnage : Miles Morales",
-      "King in Black : Return of the Valkyries",
-      "King in Black : Wiccan and Hulkling",
-      "King in Black : Scream",
-      "King in Black : Iron Man/Doctor Doom",
-      "King in Black : Marauders",
-      "King in Black : Black Cat",
-      "King in Black : Planet of the Symbiotes",
-      "Venom : Beyond",
-      "Venom : Devil’s Quarry",
-      "Venom : The Chasm"
-    ],
-    "8": [
-      "Civil War II",
-      "Civil War II : Choosing Sides",
-      "Civil War II : X-Men",
-      "Civil War II : Ulysses",
-      "Secret Empire : United",
-      "Secret Empire : Brave New World",
-      "Secret Empire : Underground",
-      "Secret Empire : Omega",
-      "Venom Inc.",
-      "Venom Inc. : Omega",
-      "Spider-Man : Red Goblin",
-      "Spider-Man : Go Down Swinging",
-      "Absolute Carnage",
-      "King in Black",
-      "Devil’s Reign",
-      "Devil’s Reign : X-Men",
-      "Devil’s Reign : Villains for Hire",
-      "Devil’s Reign : Moon Knight",
-      "Devil’s Reign : Spider-Man",
-      "Devil’s Reign : Superior Four",
-      "Devil’s Reign : Winter Soldier",
-      "Devil’s Reign : Elektra",
-      "A.X.E. : Judgment Day",
-      "Sins of Sin",
-      "Fall of X",
-      "Fall of the House of X",
-      "Rise of the Powers of X",
-      "X-Men : Forever",
-      "From the Ashes : X-Men",
-      "Blood Hunt",
-      "Blood Hunt : Avengers",
-      "Blood Hunt : X-Men",
-      "Blood Hunt : Midnight Sons",
-      "Blood Hunt : Union Jack the Ripper",
-      "One World Under Doom",
-      "One World Under Doom : Avengers",
-      "One World Under Doom : Fantastic Four",
-      "One World Under Doom : Red Hulk",
-      "One World Under Doom : Doom’s Division",
-      "Imperial",
-      "Imperial : Aftermath",
-      "Doom’s Division",
-      "Dungeons of Doom"
-    ],
-    "9": [
-      "Ultimate Marvel : Ultimate Six",
-      "Ultimate Spider-Man : Learning Curve",
-      "Ultimate Spider-Man : Venom",
-      "Ultimate Spider-Man : Hollywood",
-      "Ultimate Spider-Man : Carnage",
-      "Ultimate Spider-Man : Hobgoblin",
-      "Ultimate Spider-Man : Warriors",
-      "Ultimate Spider-Man : Silver Sable",
-      "Ultimate Spider-Man : Deadpool",
-      "Ultimate Spider-Man : Clone Saga",
-      "Ultimate Spider-Man : Death of Spider-Man",
-      "Ultimate Comics : Fallout",
-      "Ultimate Comics : All-New Spider-Man",
-      "Ultimate Comics : Spider-Men",
-      "Ultimate Comics : Hunger",
-      "Ultimate Comics : Cataclysm",
-      "Ultimate Comics : Ultimates",
-      "Ultimate Comics : X-Men",
-      "Ultimate End",
-      "Spider-Man : Miles Morales — Ultimate",
-      "Old Man Logan",
-      "Old Man Hawkeye",
-      "Old Man Quill",
-      "Old Man Punisher",
-      "Marvel Zombies",
-      "Marvel Zombies : Dead Days",
-      "Marvel Zombies : Return",
-      "Marvel Zombies : Evil Evolution",
-      "Marvel Zombies : Supreme",
-      "Marvel Zombies : Resurrection",
-      "Marvel 1602 : New World",
-      "Marvel 1602 : Fantastick Four",
-      "What If? : Age of Ultron",
-      "What If? : Civil War",
-      "What If? : Spider-Man",
-      "What If? : The Avengers",
-      "What If? : Secret Wars",
-      "House of M : Avengers",
-      "House of M : Spider-Man",
-      "House of M : Wolverine",
-      "House of M : Civil War",
-      "House of M : Fantastic Four",
-      "Spider-Man : Renew Your Vows",
-      "Gwenpool : The Unbelievable",
-      "Punisher : War Journal — Brother",
-      "Supreme Power : Contact",
-      "Squadron Supreme : Power and Glory",
-      "Earth X : Universe X",
-      "Earth X : Paradise X",
-      "Venomverse",
-      "Exiles : A World Apart",
-      "Exiles : Down the Rabbit Hole",
-      "Exiles : Days of Then and Now",
-      "Marvels : Eye of the Camera",
-      "Ruins",
-      "The Ultimates : Super-Human",
-      "The Ultimates : Homeland Security",
-      "The Ultimates : Gods and Monsters",
-      "The Ultimates : Grand Theft America",
-      "Ultimate Invasion",
-      "Ultimate Universe : Reborn",
-      "Ultimate Spider-Man (2024)",
-      "Ultimate Black Panther (2024)",
-      "Ultimate X-Men (2024)",
-      "Ultimates (2024)",
-      "Ultimate Wolverine (2025)",
-      "Ultimate Endgame (2025)"
+
+  {
+    title: "🦇 Batman — Saga classique",
+    items: [
+      { title: "Batman : Le Fils Prodigue — Moench / Grant / Dixon", volumes: 1 },
+      { title: "Batman : Knightfall — Moench / Dixon / O'Neil / Grant", volumes: 5 },
+      { title: "Batman : No Man's Land — Dixon / O'Neil / Rucka / Ostrander", volumes: 6 },
+      { title: "Batman : Hush — Jeph Loeb / Jim Lee", volumes: 2 },
+      { title: "Batman : Guerre des Jeux — Ed Brubaker / Chuck Dixon / Andersen Gabrych", volumes: 2 },
+      { title: "Batman : L'Énigme de Red Hood — Judd Winick / Doug Mahnke", volumes: 1 },
+      { title: "Batman : Silence — Jeph Loeb / Jim Lee", volumes: 2 },
+      { title: "Batman : Detective Comics — Paul Dini", volumes: 1 },
+      { title: "JLA : La Tour de Babel — Mark Waid / Howard Porter", volumes: 1 },
+      { title: "JLA : Rock of Ages — Grant Morrison", volumes: 1 },
+      { title: "JLA : A Midsummer's Nightmare — Mark Waid / Fabian Nicieza", volumes: 1 }
+    ]
+  },
+
+  {
+    title: "🌌 Crise et montée vers Final Crisis",
+    items: [
+      { title: "Identity Crisis — Brad Meltzer / Rags Morales", volumes: 1 },
+      { title: "Infinite Crisis — Geoff Johns", volumes: 1 },
+      { title: "52 — Geoff Johns / Grant Morrison / Greg Rucka / Mark Waid", volumes: 2 },
+      { title: "Seven Soldiers of Victory — Grant Morrison", volumes: 4 },
+      { title: "Death of the New Gods — Jim Starlin", volumes: 1 },
+      { title: "Countdown to Final Crisis — Paul Dini", volumes: 4 },
+      { title: "Batman R.I.P. — Grant Morrison / Tony S. Daniel", volumes: 1 },
+      { title: "Final Crisis — Grant Morrison / J.G. Jones", volumes: 1 },
+      { title: "Final Crisis : Superman Beyond — Grant Morrison / Doug Mahnke", volumes: 1 },
+      { title: "Final Crisis : Submit — Grant Morrison / Doug Mahnke", volumes: 1 },
+      { title: "Final Crisis : Rogues' Revenge — Geoff Johns / Scott Kolins", volumes: 1 },
+      { title: "Final Crisis : Legion of 3 Worlds — Geoff Johns / George Pérez", volumes: 1 },
+      { title: "Final Crisis : Revelations — Greg Rucka / Philip Tan", volumes: 1 },
+      { title: "Final Crisis : Requiem — Peter J. Tomasi", volumes: 1 },
+      { title: "Battle for the Cowl — Tony S. Daniel", volumes: 1 }
+    ]
+  },
+
+  {
+    title: "🦇 Batman — Après Final Crisis",
+    items: [
+      { title: "Batman & Robin — Grant Morrison", volumes: 3 },
+      { title: "Batman : Le Dossier Noir — Grant Morrison", volumes: 1 },
+      { title: "Batman : La Mort et le Temps — Grant Morrison / Tony S. Daniel", volumes: 1 },
+      { title: "Batman : The Return of Bruce Wayne — Grant Morrison", volumes: 1 },
+      { title: "Batman Incorporated — Grant Morrison", volumes: 3 },
+      { title: "Batman : Miroir Noir — Scott Snyder / Jock / Francesco Francavilla", volumes: 1 },
+      { title: "Flashpoint — Geoff Johns / Andy Kubert", volumes: 1 }
+    ]
+  },
+
+  {
+    title: "⚡ New 52 — Fondation du nouvel univers",
+    items: [
+      { title: "Batman : La Cour des Hiboux — Scott Snyder / Greg Capullo", volumes: 1 },
+      { title: "Batman : La Nuit des Hiboux — Scott Snyder / Greg Capullo", volumes: 1 },
+      { title: "Batman : Le Deuil de la Famille — Scott Snyder / Greg Capullo", volumes: 1 },
+      { title: "Batman : L'An Zéro — Scott Snyder / Greg Capullo", volumes: 2 },
+      { title: "Batman : Passé, Présent, Futur — Scott Snyder / Greg Capullo", volumes: 1 },
+      { title: "Batman : Mascarade — Scott Snyder / Greg Capullo", volumes: 1 },
+      { title: "Batman Eternal — Scott Snyder / James Tynion IV / Ray Fawkes / John Layman", volumes: 4 },
+      { title: "Batman : La Relève — Scott Snyder / Greg Capullo", volumes: 2 },
+      { title: "Batman : Le Chevalier Noir — Gregg Hurwitz / Paul Jenkins / David Finch", volumes: 4 },
+      { title: "Superman : Action Comics — Grant Morrison", volumes: 5 },
+      { title: "Superman : Unchained — Scott Snyder / Jim Lee", volumes: 1 },
+      { title: "Wonder Woman — Brian Azzarello / Cliff Chiang", volumes: 6 },
+      { title: "Aquaman — Geoff Johns / Ivan Reis", volumes: 6 },
+      { title: "Flash — Francis Manapul / Brian Buccellato", volumes: 5 },
+      { title: "Green Lantern — Geoff Johns", volumes: 5 },
+      { title: "Justice League — Geoff Johns / Jim Lee", volumes: 7 },
+      { title: "Justice League Dark — Peter Milligan / Mikel Janín", volumes: 3 },
+      { title: "Teen Titans — Scott Lobdell", volumes: 5 },
+      { title: "Suicide Squad — Adam Glass", volumes: 4 }
+    ]
+  },
+
+  {
+    title: "🌑 Grands événements du New 52",
+    items: [
+      { title: "Trinity War — Geoff Johns / Ivan Reis / Doug Mahnke", volumes: 1 },
+      { title: "Forever Evil — Geoff Johns / David Finch", volumes: 2 },
+      { title: "Batman : Zero Year — Scott Snyder / Greg Capullo", volumes: 2 },
+      { title: "Batman Eternal — Scott Snyder / James Tynion IV", volumes: 4 },
+      { title: "Convergence — Collectif", volumes: 4 }
+    ]
+  },
+
+  {
+    title: "🦸 Rebirth — Nouvelle continuité",
+    items: [
+      { title: "DC Universe Rebirth — Geoff Johns", volumes: 1 },
+      { title: "Batman Rebirth — Tom King", volumes: 12 },
+      { title: "Batman : La Nuit des Monstres — James Tynion IV / Scott Snyder / Tim Seeley", volumes: 1 },
+      { title: "Batman : Guerre des Rires et des Énigmes — Tom King", volumes: 1 },
+      { title: "Batman : Guerre des Blagues et des Énigmes — Tom King", volumes: 1 },
+      { title: "Batman : Joker War — James Tynion IV", volumes: 3 },
+      { title: "Batman : Detective — Peter J. Tomasi", volumes: 5 },
+      { title: "Deathstroke Rebirth — Christopher Priest", volumes: 7 },
+      { title: "Nightwing : Renaissance — Tom Taylor", volumes: 1 },
+      { title: "Superman Rebirth — Peter J. Tomasi / Patrick Gleason", volumes: 6 },
+      { title: "Action Comics — Dan Jurgens", volumes: 5 },
+      { title: "Wonder Woman Rebirth — Greg Rucka", volumes: 4 },
+      { title: "Flash Rebirth — Joshua Williamson", volumes: 8 },
+      { title: "Green Lanterns — Sam Humphries / Tim Seeley", volumes: 5 },
+      { title: "Hal Jordan and the Green Lantern Corps — Robert Venditti", volumes: 7 },
+      { title: "Aquaman Rebirth — Dan Abnett", volumes: 6 },
+      { title: "Justice League — Bryan Hitch", volumes: 6 },
+      { title: "Teen Titans Rebirth — Benjamin Percy", volumes: 4 },
+      { title: "Suicide Squad Rebirth — Rob Williams", volumes: 6 }
+    ]
+  },
+
+  {
+    title: "🦇 Metal et montée vers Death Metal",
+    items: [
+      { title: "Batman : Metal — Scott Snyder / Greg Capullo", volumes: 3 },
+      { title: "Justice League : No Justice — Scott Snyder / Joshua Williamson / James Tynion IV / Grant Morrison", volumes: 1 },
+      { title: "Justice League — Scott Snyder", volumes: 6 },
+      { title: "The Batman Who Laughs — Scott Snyder / Jock", volumes: 1 },
+      { title: "Dark Nights : Death Metal — Scott Snyder / Greg Capullo", volumes: 2 },
+      { title: "Dark Nights : Death Metal — Les Liens", volumes: 1 },
+      { title: "Dark Nights : Death Metal — La Dernière Bataille", volumes: 1 }
+    ]
+  },
+
+  {
+    title: "🦇 Batman — James Tynion IV",
+    items: [
+      { title: "Batman : La Nuit des Monstres", volumes: 1 },
+      { title: "Batman : Joker War", volumes: 3 },
+      { title: "The Joker War Zone", volumes: 1 },
+      { title: "Future State : Batman", volumes: 1 }
+    ]
+  },
+
+  {
+    title: "🦇 Batman — Chip Zdarsky",
+    items: [
+      { title: "Batman : The Knight — Chip Zdarsky / Carmine Di Giandomenico", volumes: 1 },
+      { title: "Batman : Failsafe — Chip Zdarsky / Jorge Jiménez", volumes: 1 },
+      { title: "Batman : La Cité de la Nuit — Chip Zdarsky", volumes: 1 },
+      { title: "Batman : Gotham War — Chip Zdarsky / Joshua Williamson", volumes: 1 },
+      { title: "Batman : Bombe Mentale — Chip Zdarsky / Jorge Jiménez", volumes: 1 },
+      { title: "Batman : Sombres Prisons — Chip Zdarsky / Jorge Jiménez", volumes: 1 },
+      { title: "Batman : Cité Mourante — Chip Zdarsky / Jorge Jiménez", volumes: 1 }
+    ]
+  },
+
+  {
+    title: "🦸 Autres héros majeurs — Continuité moderne",
+    items: [
+      { title: "Superman : Up in the Sky — Tom King / Andy Kubert", volumes: 1 },
+      { title: "Superman : Brainiac — Geoff Johns / Gary Frank", volumes: 1 },
+      { title: "Superman : Le Dernier Fils — Geoff Johns / Richard Donner / Adam Kubert", volumes: 1 },
+      { title: "Superman : Empereur Joker — Jeph Loeb / Joe Kelly / Collectif", volumes: 1 },
+      { title: "Wonder Woman : Hiketeia — Greg Rucka / J.G. Jones", volumes: 1 },
+      { title: "Wonder Woman : Terre Un — Grant Morrison / Yanick Paquette", volumes: 2 },
+      { title: "Green Lantern : Rebirth — Geoff Johns / Ethan Van Sciver", volumes: 1 },
+      { title: "Green Lantern : Sinestro Corps War — Geoff Johns / Dave Gibbons", volumes: 2 },
+      { title: "Blackest Night — Geoff Johns / Ivan Reis", volumes: 2 },
+      { title: "Brightest Day — Geoff Johns / Peter J. Tomasi", volumes: 4 },
+      { title: "Flash : La Guerre des Rogues — Geoff Johns", volumes: 1 },
+      { title: "Flash : Rebirth — Geoff Johns / Ethan Van Sciver", volumes: 1 },
+      { title: "Aquaman : La Mort d'un Roi — Geoff Johns / Paul Pelletier", volumes: 1 },
+      { title: "Justice League Dark — James Tynion IV", volumes: 4 }
+    ]
+  },
+
+  {
+    title: "🌌 Grands événements DC modernes",
+    items: [
+      { title: "Doomsday Clock — Geoff Johns / Gary Frank", volumes: 2 },
+      { title: "Dark Nights : Metal — Scott Snyder / Greg Capullo", volumes: 3 },
+      { title: "Dark Nights : Death Metal — Scott Snyder / Greg Capullo", volumes: 2 },
+      { title: "Infinite Frontier — Joshua Williamson", volumes: 2 },
+      { title: "Justice League Incarnate — Joshua Williamson / Dennis Culver", volumes: 2 },
+      { title: "Dark Crisis on Infinite Earths — Joshua Williamson / Daniel Sampere", volumes: 2 },
+      { title: "Lazarus Planet — Collectif", volumes: 2 },
+      { title: "Knight Terrors — Joshua Williamson / Collectif", volumes: 4 },
+      { title: "Absolute Power — Mark Waid / Dan Mora", volumes: 4 }
+    ]
+  },
+
+  {
+    title: "🌎 Elseworlds — Univers parallèles",
+    items: [
+      { title: "Batman : The Dark Knight Returns — Frank Miller", volumes: 1 },
+      { title: "Batman : Ego — Darwyn Cooke", volumes: 1 },
+      { title: "Batman : Amour Fou — Paul Dini / Bruce Timm", volumes: 1 },
+      { title: "Batman : Noël — Lee Bermejo", volumes: 1 },
+      { title: "Batman : Un Long Halloween — Jeph Loeb / Tim Sale", volumes: 1 },
+      { title: "Batman : White Knight — Sean Murphy", volumes: 2 },
+      { title: "Batman : Imposter — Mattson Tomlin / Andrea Sorrentino", volumes: 1 },
+      { title: "Batman : Terre-Un — Geoff Johns / Gary Frank", volumes: 3 },
+      { title: "Batman : La Malédiction qui s'abattit sur Gotham — Mike Mignola / Richard Pace", volumes: 1 },
+      { title: "Batman : Un Mauvais Jour — Collectif", volumes: 7 },
+      { title: "Batman : Arkham City — Paul Dini / Derek Fridolfs", volumes: 1 },
+      { title: "Superman : Pour l'homme qui a tout — Alan Moore / Dave Gibbons", volumes: 1 },
+      { title: "Superman : Qu'est-il arrivé à l'Homme de demain ? — Alan Moore / Curt Swan", volumes: 1 },
+      { title: "Superman : Red Son — Mark Millar", volumes: 1 },
+      { title: "Superman : Identité Secrète — Kurt Busiek / Stuart Immonen", volumes: 1 },
+      { title: "Superman : Kryptonite — Darwyn Cooke / Tim Sale", volumes: 1 },
+      { title: "Superman : Peace on Earth — Paul Dini / Alex Ross", volumes: 1 },
+      { title: "Superman : All-Star Superman — Grant Morrison / Frank Quitely", volumes: 1 },
+      { title: "Kingdom Come — Mark Waid / Alex Ross", volumes: 1 },
+      { title: "JLA : Terre 2 — Grant Morrison / Frank Quitely", volumes: 1 },
+      { title: "JLA : La Clou — Alan Davis", volumes: 1 },
+      { title: "Justice League : New Frontier — Darwyn Cooke", volumes: 1 },
+      { title: "Justice League International — Keith Giffen / J.M. DeMatteis / Kevin Maguire", volumes: 1 },
+      { title: "Injustice — Tom Taylor", volumes: 12 },
+      { title: "Watchmen — Alan Moore / Dave Gibbons", volumes: 1 }
     ]
   }
-};
 
-function addEncyclopedicItems(category, sectionIndex, titles) {
-  const section = database[category]?.[sectionIndex];
-  if (!section || !Array.isArray(section.items)) return [];
+],
 
-  // Déduplication à l'échelle de toute la catégorie : un même récit ajouté
-  // dans deux chapitres ne sera conservé qu'une seule fois.
-  const existing = new Set(
-    (database[category] || []).flatMap(s => s.items || [])
-      .map(item => normalizeKeyText(item.title))
-  );
+// --- CATÉGORIE COMICS MARVEL ---
+marvel: [
+  {
+    title: "🕷️ Spider-Man — Les grandes sagas",
+    items: [
+      { title: "Amazing Spider-Man — Stan Lee / Steve Ditko", volumes: 5 },
+      { title: "Amazing Spider-Man — John Romita Sr.", volumes: 5 },
+      { title: "Spider-Man : La Dernière Chasse de Kraven — J.M. DeMatteis / Mike Zeck", volumes: 1 },
+      { title: "Spider-Man : La Mort de Jean DeWolff — Peter David / Rich Buckler", volumes: 1 },
+      { title: "Spider-Man : Le Kid qui collectionnait Spider-Man — Roger Stern", volumes: 1 },
+      { title: "Spider-Man : La Saga du Clone — Ben Reilly", volumes: 6 },
+      { title: "Spider-Man : Maximum Carnage — Collectif", volumes: 2 },
+      { title: "Spider-Man : Spider-Verse — Dan Slott", volumes: 2 },
+      { title: "Spider-Man : Superior Spider-Man — Dan Slott", volumes: 6 },
+      { title: "Amazing Spider-Man — Dan Slott", volumes: 10 },
+      { title: "Spider-Man : Brand New Day — Collectif", volumes: 6 },
+      { title: "Ultimate Spider-Man — Brian Michael Bendis / Mark Bagley", volumes: 22 },
+      { title: "Ultimate Spider-Man (Nouvel univers Ultimate) — Jonathan Hickman", volumes: 3 },
+      { title: "Spider-Man : Bleu — Jeph Loeb / Tim Sale", volumes: 1 },
+      { title: "Spider-Man : Noir — David Hine / Fabrice Sapolsky", volumes: 1 },
+      { title: "Spider-Man : Life Story — Chip Zdarsky", volumes: 1 }
+    ]
+  },
 
-  const added = [];
-  titles.forEach(title => {
-    const key = normalizeKeyText(title);
-    if (!key || existing.has(key)) return;
-    section.items.push({ title, volumes: 1 });
-    existing.add(key);
-    added.push(title);
-  });
-  return added;
-}
+  {
+    title: "🛡️ Avengers — Grandes équipes",
+    items: [
+      { title: "Avengers — Stan Lee / Jack Kirby", volumes: 5 },
+      { title: "Avengers — Kurt Busiek / George Pérez", volumes: 4 },
+      { title: "New Avengers — Brian Michael Bendis", volumes: 7 },
+      { title: "Avengers — Jonathan Hickman", volumes: 6 },
+      { title: "Secret Avengers — Ed Brubaker", volumes: 3 },
+      { title: "Avengers : L'Âge Héroïque — Brian Michael Bendis", volumes: 3 },
+      { title: "Avengers : Time Runs Out — Jonathan Hickman", volumes: 2 },
+      { title: "Avengers : La Nuit des Morts-Vivants — Jason Aaron", volumes: 2 },
+      { title: "Avengers : Les Maîtres du Mal — Roger Stern", volumes: 1 }
+    ]
+  },
 
-Object.entries(encyclopedicAdditions.dc || {}).forEach(([section, titles]) =>
-  addEncyclopedicItems('dc', Number(section), titles)
-);
-Object.entries(encyclopedicAdditions.marvel || {}).forEach(([section, titles]) =>
-  addEncyclopedicItems('marvel', Number(section), titles)
-);
+  {
+    title: "🌌 Événements Marvel majeurs",
+    items: [
+      { title: "Secret Wars (1984) — Jim Shooter / Mike Zeck", volumes: 1 },
+      { title: "Secret Wars (2015) — Jonathan Hickman / Esad Ribic", volumes: 1 },
+      { title: "Civil War — Mark Millar / Steve McNiven", volumes: 1 },
+      { title: "House of M — Brian Michael Bendis / Olivier Coipel", volumes: 1 },
+      { title: "Secret Invasion — Brian Michael Bendis", volumes: 1 },
+      { title: "Dark Reign — Brian Michael Bendis", volumes: 2 },
+      { title: "Siege — Brian Michael Bendis / Olivier Coipel", volumes: 1 },
+      { title: "Infinity — Jonathan Hickman / Jim Cheung", volumes: 2 },
+      { title: "Infinity Gauntlet — Jim Starlin", volumes: 1 },
+      { title: "Infinity War — Jim Starlin", volumes: 1 },
+      { title: "Infinity Crusade — Jim Starlin", volumes: 1 },
+      { title: "Annihilation — Keith Giffen", volumes: 3 },
+      { title: "Annihilation Conquest — Dan Abnett / Andy Lanning", volumes: 2 },
+      { title: "War of Kings — Dan Abnett / Andy Lanning", volumes: 2 },
+      { title: "King in Black — Donny Cates", volumes: 2 },
+      { title: "Absolute Carnage — Donny Cates", volumes: 1 }
+    ]
+  },
 
-/*
-   L'arbre garde exactement son rendu actuel. On enrichit seulement ses nœuds
-   avec quelques jalons supplémentaires, en retrouvant dynamiquement l'index
-   de l'histoire ajoutée : aucune référence existante n'est déplacée.
-*/
-function findItemIndex(category, sectionIndex, title) {
-  const items = database[category]?.[sectionIndex]?.items || [];
-  const key = normalizeKeyText(title);
-  return items.findIndex(item => normalizeKeyText(item.title) === key);
-}
+  {
+    title: "❌ X-Men & Mutants",
+    items: [
+      { title: "X-Men — Chris Claremont / John Byrne", volumes: 10 },
+      { title: "X-Men : Dieu crée, l'homme détruit — Chris Claremont", volumes: 1 },
+      { title: "La Saga du Phénix Noir — Chris Claremont / John Byrne", volumes: 2 },
+      { title: "Days of Future Past — Chris Claremont / John Byrne", volumes: 1 },
+      { title: "X-Men : L'Ère d'Apocalypse — Collectif", volumes: 4 },
+      { title: "New X-Men — Grant Morrison", volumes: 7 },
+      { title: "Astonishing X-Men — Joss Whedon / John Cassaday", volumes: 4 },
+      { title: "Uncanny X-Force — Rick Remender", volumes: 4 },
+      { title: "House of X / Powers of X — Jonathan Hickman", volumes: 2 },
+      { title: "X-Men Krakoa — Jonathan Hickman", volumes: 10 },
+      { title: "Wolverine : Arme X — Barry Windsor-Smith", volumes: 1 },
+      { title: "Wolverine : Old Man Logan — Mark Millar / Steve McNiven", volumes: 1 },
+      { title: "Wolverine : Ennemi d'État — Mark Millar", volumes: 2 }
+    ]
+  },
 
-function addTreeNodeIfMissing(treeCategory, levelIndex, node) {
-  if (!trees[treeCategory]?.[levelIndex]) return;
-  const nodes = trees[treeCategory][levelIndex].nodes;
-  const key = normalizeKeyText(node.title);
-  if (!nodes.some(n => normalizeKeyText(n.title) === key)) nodes.push(node);
-}
-
-const treeMilestones = {
-  dc: [
-    [1, 0, 'Batman : Knightfall', 'Chute de Batman', 'event'],
-    [2, 1, 'Identity Crisis — Brad Meltzer / Rags Morales', 'Crise des héros', 'event'],
-    [3, 1, '52 : Aftermath — The Four Horsemen', 'Après Infinite Crisis', 'parallel'],
-    [4, 5, 'Flashpoint : Batman — Knight of Vengeance', 'Flashpoint', 'event'],
-    [5, 1, 'Batman : La Mort de la famille', 'Joker', 'main'],
-    [6, 0, 'Trinity War : Prelude', 'Guerre de la Trinité', 'event'],
-    [7, 0, 'Batman : Je suis Gotham', 'Rebirth', 'main'],
-    [8, 0, 'Batman : The Drowned', 'Dark Multiverse', 'parallel'],
-    [9, 1, 'Justice League Incarnate : The Complete Series', 'Multivers', 'event'],
-    [9, 2, 'Dark Crisis : Worlds Without a Justice League — Superman', 'Dark Crisis', 'event'],
-    [9, 3, 'Lazarus Planet : Assault on Krypton', 'Lazarus Planet', 'event'],
-    [9, 5, 'Absolute Batman', 'Absolute Universe', 'alternate']
-  ],
-  marvel: [
-    [0, 0, 'Fantastic Four : La Trilogie de Galactus', 'Ère Marvel classique', 'main'],
-    [1, 1, 'Spider-Man : La Mort de Gwen Stacy', 'Spider-Man', 'main'],
-    [2, 1, 'X-Men : La Seconde Genèse', 'Nouvelle ère mutante', 'main'],
-    [3, 1, 'Daredevil : Sous l’aile du diable', 'Héros urbains', 'main'],
-    [4, 0, 'Annihilation : Prologue', 'Guerre cosmique', 'event'],
-    [4, 8, 'Secret Empire', 'Événement mondial', 'event'],
-    [5, 0, 'Avengers : La Collection Hickman — Volume 1', 'Ère Hickman', 'main'],
-    [6, 0, 'Spider-Verse : Edge of Spider-Verse', 'Multivers arachnide', 'parallel'],
-    [7, 10, 'King in Black : Planet of the Symbiotes', 'Knull et les symbiotes', 'event'],
-    [8, 0, 'Civil War II', 'Nouvelle guerre civile', 'event'],
-    [8, 36, 'One World Under Doom', 'Doom prend le pouvoir', 'event'],
-    [9, 15, 'Ultimate Invasion', 'Nouvel Ultimate Universe', 'alternate'],
-    [9, 66, 'Ultimate Endgame (2025)', 'Fin du nouvel Ultimate Universe', 'alternate']
-  ]
-};
-
-for (const [category, entries] of Object.entries(treeMilestones)) {
-  for (const [level, section, title, info, type] of entries) {
-    const item = findItemIndex(category, section, title);
-    if (item >= 0) {
-      addTreeNodeIfMissing(category, level, {
-        title, info, type, category, section, item
-      });
-    }
+  {
+    title: "😈 Daredevil, Punisher & héros urbains",
+    items: [
+      { title: "Daredevil : L'Homme sans peur — Frank Miller", volumes: 1 },
+      { title: "Daredevil — Frank Miller / Klaus Janson", volumes: 6 },
+      { title: "Daredevil : Born Again — Frank Miller / David Mazzucchelli", volumes: 1 },
+      { title: "Daredevil — Brian Michael Bendis / Alex Maleev", volumes: 5 },
+      { title: "Daredevil — Ed Brubaker / Michael Lark", volumes: 4 },
+      { title: "Daredevil — Mark Waid", volumes: 6 },
+      { title: "Punisher MAX — Garth Ennis", volumes: 6 },
+      { title: "Punisher : Bienvenue chez les Punisher — Garth Ennis", volumes: 1 },
+      { title: "Moon Knight — Jeff Lemire", volumes: 3 },
+      { title: "Moon Knight — Jed MacKay", volumes: 5 }
+    ]
   }
-}
+],
 
+ // --- CATÉGORIE MANGAS ---
+manga: [
+
+{
+  title: "⚔️ Shonen incontournables",
+  items: [
+    { title: "One Piece — Eiichiro Oda", volumes: 108 },
+    { title: "Dragon Ball — Akira Toriyama", volumes: 42 },
+    { title: "Naruto — Masashi Kishimoto", volumes: 72 },
+    { title: "Bleach — Tite Kubo", volumes: 74 },
+    { title: "Hunter x Hunter — Yoshihiro Togashi", volumes: 37 },
+    { title: "Jujutsu Kaisen — Gege Akutami", volumes: 30 },
+    { title: "Demon Slayer — Koyoharu Gotouge", volumes: 23 },
+    { title: "My Hero Academia — Kohei Horikoshi", volumes: 42 },
+    { title: "Black Clover — Yūki Tabata", volumes: 36 },
+    { title: "Fairy Tail — Hiro Mashima", volumes: 63 },
+    { title: "Fullmetal Alchemist — Hiromu Arakawa", volumes: 27 },
+    { title: "JoJo’s Bizarre Adventure — Hirohiko Araki", volumes: 131 },
+    { title: "Saint Seiya — Masami Kurumada", volumes: 28 },
+    { title: "Yu Yu Hakusho — Yoshihiro Togashi", volumes: 19 },
+    { title: "Rurouni Kenshin — Nobuhiro Watsuki", volumes: 28 }
+  ]
+},
+
+{
+  title: "🩸 Seinen — sombres et matures",
+  items: [
+    { title: "Berserk — Kentaro Miura", volumes: 42 },
+    { title: "Monster — Naoki Urasawa", volumes: 18 },
+    { title: "20th Century Boys — Naoki Urasawa", volumes: 22 },
+    { title: "Pluto — Naoki Urasawa / Osamu Tezuka", volumes: 8 },
+    { title: "Billy Bat — Naoki Urasawa", volumes: 20 },
+    { title: "Vagabond — Takehiko Inoue", volumes: 37 },
+    { title: "Vinland Saga — Makoto Yukimura", volumes: 28 },
+    { title: "L’Habitant de l’infini — Hiroaki Samura", volumes: 30 },
+    { title: "Gantz — Hiroya Oku", volumes: 37 },
+    { title: "Ajin — Gamon Sakurai", volumes: 17 },
+    { title: "Blame! — Tsutomu Nihei", volumes: 10 },
+    { title: "Akira — Katsuhiro Otomo", volumes: 6 },
+    { title: "Tokyo Ghoul — Sui Ishida", volumes: 14 },
+    { title: "Tokyo Ghoul:re — Sui Ishida", volumes: 16 }
+  ]
+},
+
+{
+  title: "🔥 Dark Fantasy & horreur",
+  items: [
+    { title: "Chainsaw Man — Tatsuki Fujimoto", volumes: 21 },
+    { title: "Hell’s Paradise — Yūji Kaku", volumes: 13 },
+    { title: "Made in Abyss — Akihito Tsukushi", volumes: 13 },
+    { title: "L’Attaque des Titans — Hajime Isayama", volumes: 34 },
+    { title: "The Promised Neverland — Kaiu Shirai / Posuka Demizu", volumes: 20 },
+    { title: "Claymore — Norihiro Yagi", volumes: 27 },
+    { title: "Devilman — Go Nagai", volumes: 5 },
+    { title: "Parasyte — Hitoshi Iwaaki", volumes: 10 },
+    { title: "Homunculus — Hideo Yamamoto", volumes: 15 },
+    { title: "Uzumaki — Junji Ito", volumes: 1 },
+    { title: "Tomie — Junji Ito", volumes: 1 },
+    { title: "Gyo — Junji Ito", volumes: 1 }
+  ]
+},
+
+{
+  title: "🚀 Science-fiction & futuriste",
+  items: [
+    { title: "Ghost in the Shell — Masamune Shirow", volumes: 3 },
+    { title: "Neon Genesis Evangelion — Yoshiyuki Sadamoto", volumes: 14 },
+    { title: "Cowboy Bebop — Hajime Yatate", volumes: 3 },
+    { title: "Planetes — Makoto Yukimura", volumes: 4 },
+    { title: "Eden — Hiroki Endo", volumes: 18 },
+    { title: "Knights of Sidonia — Tsutomu Nihei", volumes: 15 },
+    { title: "Dr. Stone — Riichiro Inagaki / Boichi", volumes: 27 },
+    { title: "Dorohedoro — Q Hayashida", volumes: 23 }
+  ]
+},
+
+{
+  title: "⚡ Nouveaux shonen & succès récents",
+  items: [
+    { title: "Kaiju No. 8 — Naoya Matsumoto", volumes: 16 },
+    { title: "Sakamoto Days — Yuto Suzuki", volumes: 22 },
+    { title: "Frieren — Kanehito Yamada / Tsukasa Abe", volumes: 14 },
+    { title: "Blue Lock — Muneyuki Kaneshiro / Yusuke Nomura", volumes: 34 },
+    { title: "Spy x Family — Tatsuya Endo", volumes: 16 },
+    { title: "Mashle — Hajime Kōmoto", volumes: 18 },
+    { title: "Undead Unluck — Yoshifumi Tozuka", volumes: 27 },
+    { title: "Boruto — Masashi Kishimoto / Mikio Ikemoto", volumes: 20 },
+    { title: "Boruto: Two Blue Vortex — Masashi Kishimoto", volumes: 3 }
+  ]
+},
+
+{
+  title: "🏆 Classiques et légendes",
+  items: [
+    { title: "Astro Boy — Osamu Tezuka", volumes: 23 },
+    { title: "Black Jack — Osamu Tezuka", volumes: 17 },
+    { title: "Dororo — Osamu Tezuka", volumes: 4 },
+    { title: "Hokuto no Ken — Buronson / Tetsuo Hara", volumes: 27 },
+    { title: "City Hunter — Tsukasa Hōjō", volumes: 35 },
+    { title: "Maison Ikkoku — Rumiko Takahashi", volumes: 15 },
+    { title: "Ranma 1/2 — Rumiko Takahashi", volumes: 38 },
+    { title: "Inu-Yasha — Rumiko Takahashi", volumes: 56 },
+    { title: "Détective Conan — Gosho Aoyama", volumes: 107 }
+  ]
+},
+
+{
+  title: "🏀 Sports & compétition",
+  items: [
+    { title: "Slam Dunk — Takehiko Inoue", volumes: 31 },
+    { title: "Hajime no Ippo — George Morikawa", volumes: 141 },
+    { title: "Eyeshield 21 — Riichiro Inagaki / Yusuke Murata", volumes: 37 },
+    { title: "Kuroko’s Basket — Tadatoshi Fujimaki", volumes: 30 },
+    { title: "Haikyū!! — Haruichi Furudate", volumes: 45 },
+    { title: "Blue Giant — Shinichi Ishizuka", volumes: 10 }
+  ]
+}
+]
+};
 
 /* =========================================================
    ÉTAT GLOBAL
-========================================================= */
+   ========================================================= */
 
-const STORAGE_KEY = "lecturelist-complete-v3";
-const STORAGE_SCHEMA_VERSION = 2;
+const STORAGE_KEY = "lecturelist-checked-v1";
 
 let checkedState = {};
 let expandedState = {};
-
-let currentCategory = "dc";
-let currentFilter = "all";
 let searchQuery = "";
-
-let currentTree = "dc";
-
-
-/* =========================================================
-   CLÉS
-========================================================= */
-
-function normalizeKeyText(text) {
-
-  return String(text || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-
-}
-
-
-/*
-   Les anciennes versions utilisaient la position du comic dans la liste :
-   vol:dc:3:12:0
-
-   Cela posait un problème : dès qu'un comic était ajouté, supprimé ou déplacé,
-   toutes les cases situées après lui pouvaient sembler changer d'état.
-
-   Désormais la clé est basée sur le nom du comic + le nom de sa section.
-   L'ordre de la liste n'a donc plus d'importance.
-*/
-function stableItemKey(category, sectionIndex, itemIndex) {
-
-  const section = database[category]?.[sectionIndex];
-  const item = section?.items?.[itemIndex];
-
-  if (!item) {
-    return `unknown:${category}:${sectionIndex}:${itemIndex}`;
-  }
-
-  const sectionId = normalizeKeyText(section.title);
-  const itemId = normalizeKeyText(item.title);
-
-  return `item:${category}:${sectionId}:${itemId}`;
-
-}
-
-
-function volumeKey(category, section, item, volume) {
-
-  return `${stableItemKey(category, section, item)}:vol:${volume}`;
-
-}
-
-
-function isVolumeChecked(category, section, item, volume) {
-
-  return checkedState[
-    volumeKey(category, section, item, volume)
-  ] === true;
-
-}
-
+let currentFilter = "all";
+let currentCategory = "dc"; // Catégorie active par défaut (dc, marvel, manga)
 
 /* =========================================================
-   SAUVEGARDE
-========================================================= */
+   GÉNÉRATION DES CLÉS UNIQUES
+   ========================================================= */
+
+function volumeKey(category, sectionIndex, itemIndex, volumeIndex) {
+  return `vol:${category}:${sectionIndex}:${itemIndex}:${volumeIndex}`;
+}
+
+/* =========================================================
+   CHARGEMENT & SAUVEGARDE
+   ========================================================= */
 
 function loadState() {
-
   try {
-
-    const saved =
-      localStorage.getItem(STORAGE_KEY);
-
-    if (!saved) {
-      checkedState = {};
-      return;
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      checkedState = JSON.parse(saved);
     }
-
-    const parsed = JSON.parse(saved);
-    checkedState = parsed && typeof parsed === "object" ? parsed : {};
-
-    /*
-       Migration automatique : les anciennes cases étaient enregistrées avec
-       sectionIndex/itemIndex. On les convertit une seule fois vers les clés
-       stables. Les cases déjà enregistrées avec le nouveau format sont
-       conservées telles quelles.
-    */
-    const migratedState = {};
-    let migrated = false;
-
-    Object.keys(checkedState).forEach(key => {
-
-      if (checkedState[key] !== true) {
-        return;
-      }
-
-      const match = key.match(/^vol:([^:]+):(\d+):(\d+):(\d+)$/);
-
-      if (!match) {
-        migratedState[key] = true;
-        return;
-      }
-
-      const category = match[1];
-      const sectionIndex = Number(match[2]);
-      const itemIndex = Number(match[3]);
-      const volumeIndex = Number(match[4]);
-
-      if (
-        database[category] &&
-        database[category][sectionIndex] &&
-        database[category][sectionIndex].items &&
-        database[category][sectionIndex].items[itemIndex]
-      ) {
-        migratedState[
-          volumeKey(
-            category,
-            sectionIndex,
-            itemIndex,
-            volumeIndex
-          )
-        ] = true;
-        migrated = true;
-      } else {
-        /* On garde les anciennes données impossibles à mapper plutôt que
-           de les détruire silencieusement. */
-        migratedState[key] = true;
-      }
-
-    });
-
-    checkedState = migratedState;
-
-    if (migrated) {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify(checkedState)
-      );
-    }
-
   } catch (error) {
-
-    console.error("Erreur de chargement/migration :", error);
-
+    console.error("Erreur de chargement :", error);
     checkedState = {};
-
   }
-
+  render();
 }
-
 
 function saveState() {
-
   try {
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(checkedState)
-    );
-
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(checkedState));
     showSaveStatus("✓ Sauvegardé");
-
   } catch (error) {
-
-    console.error(error);
-
+    console.error("Erreur de sauvegarde :", error);
   }
-
 }
-
 
 function showSaveStatus(message) {
-
-  const status =
-    document.getElementById("saveStatus");
-
+  const status = document.getElementById("saveStatus");
   if (!status) return;
-
   status.textContent = message;
-
   clearTimeout(window.saveTimer);
-
-  window.saveTimer =
-    setTimeout(() => {
-
-      status.textContent = "";
-
-    }, 1500);
-
+  window.saveTimer = setTimeout(() => {
+    status.textContent = "";
+  }, 1500);
 }
 
-
 /* =========================================================
-   TEXTE
-========================================================= */
+   FONCTIONS UTILITAIRES DE VÉRIFICATION
+   ========================================================= */
+
+function isVolumeChecked(category, sectionIndex, itemIndex, volumeIndex) {
+  return checkedState[volumeKey(category, sectionIndex, itemIndex, volumeIndex)] === true;
+}
+
+function getCompletedVolumes(category, sectionIndex, itemIndex, volumes) {
+  let completed = 0;
+  for (let i = 0; i < volumes; i++) {
+    if (isVolumeChecked(category, sectionIndex, itemIndex, i)) {
+      completed++;
+    }
+  }
+  return completed;
+}
+
+function toggleVolume(category, sectionIndex, itemIndex, volumeIndex) {
+  const key = volumeKey(category, sectionIndex, itemIndex, volumeIndex);
+  checkedState[key] = !checkedState[key];
+  saveState();
+  render();
+}
+
+function toggleExpanded(category, sectionIndex, itemIndex) {
+  const key = `${category}:${sectionIndex}:${itemIndex}`;
+  expandedState[key] = !expandedState[key];
+  render();
+}
 
 function normalizeText(text) {
-
-  return String(text)
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-
+  return text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-
-/* =========================================================
-   VOLUMES
-========================================================= */
-
-function getVolumes(item) {
-
-  return Math.max(
-    1,
-    Number(item.volumes) || 1
-  );
-
-}
-
-
-function getCompletedVolumes(
-  category,
-  section,
-  item,
-  volumes
-) {
-
-  let total = 0;
-
-  for (
-    let i = 0;
-    i < volumes;
-    i++
-  ) {
-
-    if (
-      isVolumeChecked(
-        category,
-        section,
-        item,
-        i
-      )
-    ) {
-
-      total++;
-
-    }
-
-  }
-
-  return total;
-
-}
-
-
-function toggleVolume(
-  category,
-  section,
-  item,
-  volume
-) {
-
-  const key =
-    volumeKey(
-      category,
-      section,
-      item,
-      volume
-    );
-
-  checkedState[key] =
-    !checkedState[key];
-
-  saveState();
-
+function setSearchQuery(value) {
+  searchQuery = normalizeText(value.trim());
   render();
-
 }
 
-
-/* =========================================================
-   EXPANSION
-========================================================= */
-
-function toggleExpanded(
-  category,
-  section,
-  item
-) {
-
-  const key =
-    `${category}:${section}:${item}`;
-
-  expandedState[key] =
-    !expandedState[key];
-
-  render();
-
-}
-
-
-/* =========================================================
-   FILTRES
-========================================================= */
-
-function matchesFilter(
-  category,
-  section,
-  item,
-  volume
-) {
-
-  const checked =
-    isVolumeChecked(
-      category,
-      section,
-      item,
-      volume
-    );
-
-  if (currentFilter === "all")
-    return true;
-
-  if (currentFilter === "checked")
-    return checked;
-
-  if (currentFilter === "unchecked")
-    return !checked;
-
+function matchesFilter(category, sectionIndex, itemIndex, volumeIndex) {
+  const checked = isVolumeChecked(category, sectionIndex, itemIndex, volumeIndex);
+  if (currentFilter === "all") return true;
+  if (currentFilter === "checked") return checked;
+  if (currentFilter === "unchecked") return !checked;
   return true;
-
 }
 
-
-/* =========================================================
-   RÉINITIALISATION
-========================================================= */
+function hasVisibleVolumes(category, sectionIndex, itemIndex, item) {
+  const volumes = Math.max(1, Number(item.volumes) || 1);
+  for (let i = 0; i < volumes; i++) {
+    if (matchesFilter(category, sectionIndex, itemIndex, i)) {
+      return true;
+    }
+  }
+  return false;
+}
 
 function resetAll() {
-
-  const confirmation =
-    confirm(
-      "Réinitialiser toutes les cases de LectureList ?"
-    );
-
-  if (!confirmation)
+  if (!confirm("Réinitialiser l'ensemble de vos listes de lecture ?\n\nToutes les cases de toutes les catégories seront décochées.")) {
     return;
-
+  }
   checkedState = {};
   expandedState = {};
-
   try {
-
-    localStorage.removeItem(
-      STORAGE_KEY
-    );
-
+    localStorage.removeItem(STORAGE_KEY);
   } catch (error) {
-
     console.error(error);
-
   }
-
   render();
-
-  showSaveStatus(
-    "Liste réinitialisée"
-  );
-
+  showSaveStatus("Liste réinitialisée");
 }
 
-
 /* =========================================================
-   NAVIGATION VERS UN COMIC
-========================================================= */
-
-function navigateToComic(
-  category,
-  sectionIndex,
-  itemIndex
-) {
-
-  currentCategory = category;
-
-  currentFilter = "all";
-
-  searchQuery = "";
-
-  const search =
-    document.getElementById(
-      "searchInput"
-    );
-
-  if (search)
-    search.value = "";
-
-  document
-    .querySelectorAll(".tab-button")
-    .forEach(button => {
-
-      button.classList.toggle(
-        "active",
-        button.dataset.category ===
-          category
-      );
-
-    });
-
-  document
-    .querySelectorAll(".filter-option")
-    .forEach(option => {
-
-      option.classList.toggle(
-        "selected",
-        option.dataset.filter === "all"
-      );
-
-    });
-
-  document
-    .getElementById("filterButton")
-    ?.classList.remove("active");
-
-  render();
-
-  setTimeout(() => {
-
-    const sections =
-      document.querySelectorAll(
-        "#app .section"
-      );
-
-    const targetSection =
-      sections[sectionIndex];
-
-    if (!targetSection)
-      return;
-
-    const items =
-      targetSection.querySelectorAll(
-        ".item"
-      );
-
-    const target =
-      items[itemIndex];
-
-    if (!target)
-      return;
-
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "center"
-    });
-
-    target.classList.add(
-      "target-highlight"
-    );
-
-    setTimeout(() => {
-
-      target.classList.remove(
-        "target-highlight"
-      );
-
-    }, 2500);
-
-  }, 50);
-
-}
-
-
-/* =========================================================
-   ARBRE
-========================================================= */
-
-function renderTree() {
-
-  const app =
-    document.getElementById("app");
-
-  app.innerHTML = "";
-
-  const page =
-    document.createElement("div");
-
-  page.className =
-    "tree-page";
-
-
-  const header =
-    document.createElement("div");
-
-  header.className =
-    "tree-header";
-
-
-  const title =
-    document.createElement("h2");
-
-  title.textContent =
-    currentTree === "dc"
-      ? "🦇 Chronologie DC"
-      : "🦸 Chronologie Marvel";
-
-
-  const description =
-    document.createElement("p");
-
-  description.textContent =
-    "Clique sur une case pour accéder directement au comic correspondant.";
-
-
-  header.appendChild(title);
-  header.appendChild(description);
-
-
-  const switcher =
-    document.createElement("div");
-
-  switcher.className =
-    "tree-switch";
-
-
-  const dcButton =
-    document.createElement("button");
-
-  dcButton.textContent =
-    "🦇 Arbre DC";
-
-  dcButton.className =
-    currentTree === "dc"
-      ? "active"
-      : "";
-
-  dcButton.onclick = () => {
-
-    currentTree = "dc";
-
-    renderTree();
-
-  };
-
-
-  const marvelButton =
-    document.createElement("button");
-
-  marvelButton.textContent =
-    "🦸 Arbre Marvel";
-
-  marvelButton.className =
-    currentTree === "marvel"
-      ? "active"
-      : "";
-
-  marvelButton.onclick = () => {
-
-    currentTree = "marvel";
-
-    renderTree();
-
-  };
-
-
-  switcher.appendChild(dcButton);
-  switcher.appendChild(marvelButton);
-
-
-  const tree =
-    document.createElement("div");
-
-  tree.className =
-    "tree";
-
-
-  const levels =
-    trees[currentTree];
-
-
-  levels.forEach((level, index) => {
-
-    const levelDiv =
-      document.createElement("div");
-
-    levelDiv.className =
-      "tree-level";
-
-
-    level.nodes.forEach(node => {
-
-      const nodeDiv =
-        document.createElement("div");
-
-      nodeDiv.className =
-        `tree-node ${node.type}`;
-
-
-      const nodeTitle =
-        document.createElement("div");
-
-      nodeTitle.className =
-        "tree-node-title";
-
-      nodeTitle.textContent =
-        node.title;
-
-
-      const nodeInfo =
-        document.createElement("div");
-
-      nodeInfo.className =
-        "tree-node-info";
-
-      nodeInfo.textContent =
-        node.info;
-
-
-      nodeDiv.appendChild(nodeTitle);
-      nodeDiv.appendChild(nodeInfo);
-
-
-      nodeDiv.addEventListener(
-        "click",
-        () => {
-
-          navigateToComic(
-            node.category,
-            node.section,
-            node.item
-          );
-
-        }
-      );
-
-
-      levelDiv.appendChild(
-        nodeDiv
-      );
-
-    });
-
-
-    tree.appendChild(levelDiv);
-
-
-    if (
-      index <
-      levels.length - 1
-    ) {
-
-      const line =
-        document.createElement("div");
-
-      line.className =
-        "tree-line";
-
-      tree.appendChild(line);
-
-    }
-
-  });
-
-
-  const legend =
-    document.createElement("div");
-
-  legend.className =
-    "tree-legend";
-
-
-  [
-    ["main", "Continuité principale"],
-    ["event", "Grand événement"],
-    ["parallel", "Histoire parallèle"],
-    ["alternate", "Univers alternatif"]
-  ].forEach(([type, label]) => {
-
-    const item =
-      document.createElement("div");
-
-    item.className =
-      `legend ${type}`;
-
-    item.textContent =
-      label;
-
-    legend.appendChild(item);
-
-  });
-
-
-  page.appendChild(header);
-  page.appendChild(switcher);
-  page.appendChild(tree);
-  page.appendChild(legend);
-
-  app.appendChild(page);
-
-}
-
-
-/* =========================================================
-   RENDU DES LISTES
-========================================================= */
+   MOTEUR DE RENDU
+   ========================================================= */
 
 function render() {
-
-  if (currentCategory === "tree") {
-
-    renderTree();
-
-    return;
-
-  }
-
-
-  const app =
-    document.getElementById("app");
+  const app = document.getElementById("app");
+  if (!app) return;
 
   app.innerHTML = "";
 
-
-  const data =
-    database[currentCategory] || [];
-
+  const currentData = database[currentCategory] || [];
 
   let totalVolumes = 0;
   let completedVolumes = 0;
   let visibleItems = 0;
 
-
-  data.forEach(
-    (section, sectionIndex) => {
-
-      let sectionVisible =
-        false;
-
-
-      const sectionDiv =
-        document.createElement("div");
-
-      sectionDiv.className =
-        "section";
-
-      sectionDiv.dataset.section =
-        sectionIndex;
-
-
-      const title =
-        document.createElement("div");
-
-      title.className =
-        "section-title";
-
-      title.textContent =
-        section.title;
-
-      sectionDiv.appendChild(title);
-
-
-      section.items.forEach(
-        (item, itemIndex) => {
-
-          const volumes =
-            getVolumes(item);
-
-
-          const completed =
-            getCompletedVolumes(
-              currentCategory,
-              sectionIndex,
-              itemIndex,
-              volumes
-            );
-
-
-          totalVolumes +=
-            volumes;
-
-          completedVolumes +=
-            completed;
-
-
-          const titleNormalized =
-            normalizeText(
-              item.title
-            );
-
-
-          if (
-            searchQuery &&
-            !titleNormalized.includes(
-              searchQuery
-            )
-          ) {
-
-            return;
-
-          }
-
-
-          let visibleVolumes = [];
-
-          for (
-            let volume = 0;
-            volume < volumes;
-            volume++
-          ) {
-
-            if (
-              matchesFilter(
-                currentCategory,
-                sectionIndex,
-                itemIndex,
-                volume
-              )
-            ) {
-
-              visibleVolumes.push(
-                volume
-              );
-
-            }
-
-          }
-
-
-          if (
-            visibleVolumes.length === 0
-          ) {
-
-            return;
-
-          }
-
-
-          sectionVisible = true;
-          visibleItems++;
-
-
-          const complete =
-            completed === volumes;
-
-
-          const wrapper =
-            document.createElement("div");
-
-
-          const itemDiv =
-            document.createElement("div");
-
-          itemDiv.className =
-            "item" +
-            (
-              complete
-                ? " checked"
-                : ""
-            );
-
-
-          const row =
-            document.createElement("div");
-
-          row.className =
-            "comic-row";
-
-
-          if (volumes > 1) {
-
-            const arrow =
-              document.createElement("button");
-
-            arrow.className =
-              "expand-button";
-
-
-            const expandKey =
-              `${currentCategory}:${sectionIndex}:${itemIndex}`;
-
-
-            const expanded =
-              expandedState[
-                expandKey
-              ] === true;
-
-
-            if (expanded)
-              arrow.classList.add(
-                "expanded"
-              );
-
-
-            arrow.textContent =
-              "▶";
-
-
-            arrow.onclick =
-              event => {
-
-                event.stopPropagation();
-
-                toggleExpanded(
-                  currentCategory,
-                  sectionIndex,
-                  itemIndex
-                );
-
-              };
-
-
-            row.appendChild(
-              arrow
-            );
-
-          } else {
-
-            const spacer =
-              document.createElement(
-                "div"
-              );
-
-            spacer.style.width =
-              "22px";
-
-            spacer.style.minWidth =
-              "22px";
-
-            row.appendChild(
-              spacer
-            );
-
-          }
-
-
-          const main =
-            document.createElement("div");
-
-          main.className =
-            "comic-main";
-
-
-          const checkbox =
-            document.createElement("div");
-
-          checkbox.className =
-            "checkbox" +
-            (
-              complete
-                ? " checked"
-                : ""
-            );
-
-
-          const text =
-            document.createElement("div");
-
-          text.className =
-            "item-text";
-
-          text.textContent =
-            item.title;
-
-
-          main.appendChild(
-            checkbox
-          );
-
-          main.appendChild(
-            text
-          );
-
-
-          row.appendChild(
-            main
-          );
-
-
-          if (volumes > 1) {
-
-            const counter =
-              document.createElement(
-                "div"
-              );
-
-            counter.className =
-              "volume-count";
-
-            counter.textContent =
-              `${completed}/${volumes}`;
-
-            row.appendChild(
-              counter
-            );
-
-          }
-
-
-          itemDiv.appendChild(
-            row
-          );
-
-
-          itemDiv.onclick =
-            () => {
-
-              if (volumes > 1) {
-
-                toggleExpanded(
-                  currentCategory,
-                  sectionIndex,
-                  itemIndex
-                );
-
-              } else {
-
-                toggleVolume(
-                  currentCategory,
-                  sectionIndex,
-                  itemIndex,
-                  0
-                );
-
-              }
-
-            };
-
-
-          wrapper.appendChild(
-            itemDiv
-          );
-
-
-          const expandKey =
-            `${currentCategory}:${sectionIndex}:${itemIndex}`;
-
-
-          if (
-            volumes > 1 &&
-            expandedState[
-              expandKey
-            ]
-          ) {
-
-            const volumeList =
-              document.createElement(
-                "div"
-              );
-
-            volumeList.className =
-              "volume-list open";
-
-
-            visibleVolumes.forEach(
-              volumeIndex => {
-
-                const checked =
-                  isVolumeChecked(
-                    currentCategory,
-                    sectionIndex,
-                    itemIndex,
-                    volumeIndex
-                  );
-
-
-                const volumeItem =
-                  document.createElement(
-                    "div"
-                  );
-
-                volumeItem.className =
-                  "volume-item" +
-                  (
-                    checked
-                      ? " checked"
-                      : ""
-                  );
-
-
-                volumeItem.onclick =
-                  event => {
-
-                    event.stopPropagation();
-
-                    toggleVolume(
-                      currentCategory,
-                      sectionIndex,
-                      itemIndex,
-                      volumeIndex
-                    );
-
-                  };
-
-
-                const volumeCheckbox =
-                  document.createElement(
-                    "div"
-                  );
-
-                volumeCheckbox.className =
-                  "volume-checkbox" +
-                  (
-                    checked
-                      ? " checked"
-                      : ""
-                  );
-
-
-                const volumeText =
-                  document.createElement(
-                    "div"
-                  );
-
-                volumeText.className =
-                  "volume-text";
-
-                volumeText.textContent =
-                  `Tome ${volumeIndex + 1}`;
-
-
-                volumeItem.appendChild(
-                  volumeCheckbox
-                );
-
-                volumeItem.appendChild(
-                  volumeText
-                );
-
-
-                volumeList.appendChild(
-                  volumeItem
-                );
-
-              }
-            );
-
-
-            wrapper.appendChild(
-              volumeList
-            );
-
-          }
-
-
-          sectionDiv.appendChild(
-            wrapper
-          );
-
-        }
-      );
-
-
-      if (sectionVisible) {
-
-        app.appendChild(
-          sectionDiv
-        );
-
+  currentData.forEach((section, sectionIndex) => {
+    // Vérification présence recherche
+    const hasSearchResult = section.items.some(item => 
+      !searchQuery || normalizeText(item.title).includes(searchQuery)
+    );
+
+    if (searchQuery && !hasSearchResult) return;
+
+    const sectionDiv = document.createElement("div");
+    sectionDiv.className = "section";
+
+    const titleDiv = document.createElement("div");
+    titleDiv.className = "section-title";
+    titleDiv.textContent = section.title;
+    sectionDiv.appendChild(titleDiv);
+
+    let sectionHasVisibleItem = false;
+
+    section.items.forEach((item, itemIndex) => {
+      if (searchQuery && !normalizeText(item.title).includes(searchQuery)) {
+        return;
       }
 
+      const volumes = Math.max(1, Number(item.volumes) || 1);
+      const completed = getCompletedVolumes(currentCategory, sectionIndex, itemIndex, volumes);
+
+      totalVolumes += volumes;
+      completedVolumes += completed;
+
+      if (volumes > 1 && !hasVisibleVolumes(currentCategory, sectionIndex, itemIndex, item)) {
+        return;
+      }
+
+      if (volumes === 1 && !matchesFilter(currentCategory, sectionIndex, itemIndex, 0)) {
+        return;
+      }
+
+      sectionHasVisibleItem = true;
+      visibleItems++;
+
+      const complete = completed === volumes;
+      const expandKey = `${currentCategory}:${sectionIndex}:${itemIndex}`;
+      const expanded = expandedState[expandKey] === true;
+
+      const wrapper = document.createElement("div");
+
+      const itemDiv = document.createElement("div");
+      itemDiv.className = "item" + (complete ? " checked comic-completed" : "");
+
+      const comicRow = document.createElement("div");
+      comicRow.className = "comic-row";
+
+      // Bouton Flèche (si plusieurs tomes)
+      if (volumes > 1) {
+        const arrow = document.createElement("button");
+        arrow.type = "button";
+        arrow.className = "expand-button" + (expanded ? " expanded" : "");
+        arrow.textContent = "▶";
+        arrow.title = expanded ? "Masquer les tomes" : "Afficher les tomes";
+
+        arrow.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleExpanded(currentCategory, sectionIndex, itemIndex);
+        });
+
+        comicRow.appendChild(arrow);
+      } else {
+        const spacer = document.createElement("div");
+        spacer.style.width = "22px";
+        spacer.style.minWidth = "22px";
+        comicRow.appendChild(spacer);
+      }
+
+      // Checkbox principal & Titre
+      const comicMain = document.createElement("div");
+      comicMain.className = "comic-main";
+
+      const checkbox = document.createElement("div");
+      checkbox.className = "checkbox" + (complete ? " checked" : "");
+
+      const text = document.createElement("div");
+      text.className = "item-text";
+      text.textContent = item.title;
+
+      comicMain.appendChild(checkbox);
+      comicMain.appendChild(text);
+      comicRow.appendChild(comicMain);
+
+      // Compteur de tomes
+      if (volumes > 1) {
+        const counter = document.createElement("div");
+        counter.className = "volume-count";
+        counter.textContent = `${completed}/${volumes}`;
+        comicRow.appendChild(counter);
+      }
+
+      itemDiv.appendChild(comicRow);
+
+      // Action au clic sur la ligne
+      itemDiv.addEventListener("click", () => {
+        if (volumes > 1) {
+          toggleExpanded(currentCategory, sectionIndex, itemIndex);
+        } else {
+          toggleVolume(currentCategory, sectionIndex, itemIndex, 0);
+        }
+      });
+
+      wrapper.appendChild(itemDiv);
+
+      // Sous-liste des tomes
+      if (volumes > 1 && expanded) {
+        const volumeList = document.createElement("div");
+        volumeList.className = "volume-list open";
+
+        for (let volumeIndex = 0; volumeIndex < volumes; volumeIndex++) {
+          if (!matchesFilter(currentCategory, sectionIndex, itemIndex, volumeIndex)) {
+            continue;
+          }
+
+          const checked = isVolumeChecked(currentCategory, sectionIndex, itemIndex, volumeIndex);
+
+          const volumeItem = document.createElement("div");
+          volumeItem.className = "volume-item" + (checked ? " checked" : "");
+
+          volumeItem.addEventListener("click", (e) => {
+            e.stopPropagation();
+            toggleVolume(currentCategory, sectionIndex, itemIndex, volumeIndex);
+          });
+
+          const volumeCheckbox = document.createElement("div");
+          volumeCheckbox.className = "volume-checkbox" + (checked ? " checked" : "");
+
+          const volumeText = document.createElement("div");
+          volumeText.className = "volume-text";
+          volumeText.textContent = `Tome ${volumeIndex + 1}`;
+
+          volumeItem.appendChild(volumeCheckbox);
+          volumeItem.appendChild(volumeText);
+          volumeList.appendChild(volumeItem);
+        }
+
+        wrapper.appendChild(volumeList);
+      }
+
+      sectionDiv.appendChild(wrapper);
+    });
+
+    if (sectionHasVisibleItem) {
+      app.appendChild(sectionDiv);
     }
-  );
+  });
 
-
+  // Message si aucun résultat
   if (visibleItems === 0) {
+    const noResults = document.createElement("div");
+    noResults.className = "no-results";
 
-    const noResults =
-      document.createElement(
-        "div"
-      );
-
-    noResults.className =
-      "no-results";
-
-
-    if (
-      currentFilter === "checked"
-    ) {
-
-      noResults.textContent =
-        "☑️ Aucun élément coché.";
-
-    } else if (
-      currentFilter === "unchecked"
-    ) {
-
-      noResults.textContent =
-        "☐ Aucun élément non coché.";
-
+    if (currentFilter === "checked") {
+      noResults.textContent = "☑️ Aucun élément coché dans cette catégorie.";
+    } else if (currentFilter === "unchecked") {
+      noResults.textContent = "☐ Tous les éléments sont cochés dans cette catégorie !";
     } else {
-
-      noResults.textContent =
-        "🔎 Aucun résultat.";
-
+      noResults.textContent = "🔎 Aucun élément trouvé.";
     }
 
-
-    app.appendChild(
-      noResults
-    );
-
+    app.appendChild(noResults);
   }
 
-
-  const progress =
-    document.getElementById(
-      "progress"
-    );
-
-
+  // Progression globale de la catégorie
+  const progress = document.getElementById("progress");
   if (progress) {
-
-    progress.textContent =
-      `${completedVolumes} / ${totalVolumes}`;
-
+    progress.textContent = `${completedVolumes} / ${totalVolumes}`;
   }
-
 }
 
-
 /* =========================================================
-   ONGLETS
-========================================================= */
-
-document
-  .querySelectorAll(".tab-button")
-  .forEach(button => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        currentCategory =
-          button.dataset.category;
-
-        document
-          .querySelectorAll(
-            ".tab-button"
-          )
-          .forEach(tab => {
-
-            tab.classList.toggle(
-              "active",
-              tab === button
-            );
-
-          });
-
-
-        const searchContainer =
-          document.getElementById(
-            "searchContainer"
-          );
-
-
-        if (
-          searchContainer
-        ) {
-
-          searchContainer.style.display =
-            currentCategory === "tree"
-              ? "none"
-              : "flex";
-
-        }
-
-
-        render();
-
-      }
-    );
-
-  });
-
-
-/* =========================================================
-   RECHERCHE
-========================================================= */
-
-document
-  .getElementById("searchInput")
-  .addEventListener(
-    "input",
-    event => {
-
-      searchQuery =
-        normalizeText(
-          event.target.value.trim()
-        );
-
-      render();
-
-    }
-  );
-
-
-/* =========================================================
-   FILTRE
-========================================================= */
-
-const filterButton =
-  document.getElementById(
-    "filterButton"
-  );
-
-const filterMenu =
-  document.getElementById(
-    "filterMenu"
-  );
-
-
-filterButton.addEventListener(
-  "click",
-  event => {
-
-    event.stopPropagation();
-
-    filterMenu.classList.toggle(
-      "open"
-    );
-
-  }
-);
-
-
-filterMenu.addEventListener(
-  "click",
-  event => {
-
-    event.stopPropagation();
-
-  }
-);
-
-
-document
-  .querySelectorAll(
-    ".filter-option"
-  )
-  .forEach(option => {
-
-    option.addEventListener(
-      "click",
-      () => {
-
-        currentFilter =
-          option.dataset.filter;
-
-
-        document
-          .querySelectorAll(
-            ".filter-option"
-          )
-          .forEach(item => {
-
-            item.classList.toggle(
-              "selected",
-              item === option
-            );
-
-          });
-
-
-        filterButton.classList.toggle(
-          "active",
-          currentFilter !== "all"
-        );
-
-
-        filterMenu.classList.remove(
-          "open"
-        );
-
-
-        render();
-
-      }
-    );
-
-  });
-
-
-document.addEventListener(
-  "click",
-  () => {
-
-    filterMenu.classList.remove(
-      "open"
-    );
-
-  }
-);
-
-
-/* =========================================================
-   RESET
-========================================================= */
-
-document
-  .getElementById("resetButton")
-  .addEventListener(
-    "click",
-    resetAll
-  );
-
-
-/* =========================================================
-   RACCOURCI ÉCHAP
-========================================================= */
-
-document.addEventListener(
-  "keydown",
-  event => {
-
-    if (event.key !== "Escape")
-      return;
-
-    searchQuery = "";
-
-    const input =
-      document.getElementById(
-        "searchInput"
-      );
-
-    if (input)
-      input.value = "";
-
+   ÉVÉNEMENTS & INITIALISATION
+   ========================================================= */
+
+// Onglets de catégories
+document.querySelectorAll(".tab-button").forEach(button => {
+  button.addEventListener("click", () => {
+    document.querySelectorAll(".tab-button").forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    currentCategory = button.dataset.category;
     render();
+  });
+});
 
-  }
-);
+// Menu Filtre
+const filterButton = document.getElementById("filterButton");
+const filterMenu = document.getElementById("filterMenu");
 
+filterButton.addEventListener("click", (e) => {
+  e.stopPropagation();
+  filterMenu.classList.toggle("open");
+});
 
-/* =========================================================
-   PATCHNOTES
-========================================================= */
+filterMenu.addEventListener("click", (e) => {
+  e.stopPropagation();
+});
 
-const patchnotesButton = document.getElementById("patchnotesButton");
-const patchnotesView = document.getElementById("patchnotesView");
-const patchnotesBack = document.getElementById("patchnotesBack");
-const app = document.getElementById("app");
-const searchContainer = document.getElementById("searchContainer");
-const categoryTabs = document.getElementById("categoryTabs");
+document.querySelectorAll(".filter-option").forEach(button => {
+  button.addEventListener("click", () => {
+    currentFilter = button.dataset.filter;
+    document.querySelectorAll(".filter-option").forEach(opt => opt.classList.remove("selected"));
+    button.classList.add("selected");
+    filterButton.classList.toggle("active", currentFilter !== "all");
+    filterMenu.classList.remove("open");
+    render();
+  });
+});
 
-function openPatchnotes() {
-  if (!patchnotesView || !app) return;
-  app.style.display = "none";
-  if (searchContainer) searchContainer.style.display = "none";
-  if (categoryTabs) categoryTabs.style.display = "none";
-  patchnotesView.classList.add("open");
-  if (patchnotesButton) patchnotesButton.classList.add("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
+document.addEventListener("click", () => {
+  filterMenu.classList.remove("open");
+});
 
-function closePatchnotes() {
-  if (!patchnotesView || !app) return;
-  patchnotesView.classList.remove("open");
-  app.style.display = "";
-  if (searchContainer) searchContainer.style.display = "";
-  if (categoryTabs) categoryTabs.style.display = "";
-  if (patchnotesButton) patchnotesButton.classList.remove("active");
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
+// Champ de recherche
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  setSearchQuery(e.target.value);
+});
 
-if (patchnotesButton) patchnotesButton.addEventListener("click", openPatchnotes);
-if (patchnotesBack) patchnotesBack.addEventListener("click", closePatchnotes);
+// Bouton Réinitialiser
+document.getElementById("resetButton").addEventListener("click", resetAll);
 
-/* =========================================================
-   INITIALISATION
-========================================================= */
-
+// Lancement
 loadState();
-
-render();
-
 </script>
 
 </body>
